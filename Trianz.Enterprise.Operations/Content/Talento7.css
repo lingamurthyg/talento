@@ -1,0 +1,170 @@
+﻿
+/*bench employee*/
+#txt {
+    color: #133B93;
+    font-size: 20px;
+    /*font: normal normal medium 20px/45px Poppins;*/
+}
+#emp1 {
+    width: 120px;
+}
+
+.DName {
+    width: 15%;
+}
+
+.DCode {
+    width: 13%;
+}
+
+.Remarks {
+    width: 20%;
+}
+
+.Grade {
+    width: 5%;
+}
+
+.HRRF_custom #gridcontent {
+    height: 100%;
+}
+
+.HRRF_custom table tr th {
+    color: black;
+    font-size: 12px;
+}
+
+.table > thead > tr > th {
+    white-space: nowrap
+}
+
+
+
+/*report employeemaster*/
+/*Get for correct way headings all in table*/
+.table > thead > tr > th {
+    white-space: nowrap
+}
+
+#txt {
+    color: #133B93;
+    font-size: 20px;
+    margin-left: 3px;
+    /*font: normal normal medium 20px/45px Poppins;*/
+    margin-top: 27px;
+}
+
+#SearchEmployee {
+    margin-left: -53px;
+}
+
+
+
+
+
+.empid {
+    width: 6%;
+}
+
+.Request {
+    width: 8%;
+}
+
+.Location {
+    width: 8%;
+}
+
+.Designation {
+    width: 20%;
+}
+
+.Grade {
+    width: 3%;
+}
+
+.edit {
+    width: 1%;
+}
+
+.HRRF_custom #gridcontent {
+    height: 100%;
+}
+
+.HRRF_custom table.p-resources thead th, .HRRF_custom table.p-resources tbody th, table.dataTable.nowrap th {
+    background-color: #E1F3FF !important;
+}
+
+    .HRRF_custom table.p-resources thead tr a, table.dataTable.nowrap th, table.dataTable.nowrap th a {
+        color: black;
+        font-size: 12px;
+    }
+
+
+
+.empid {
+    width: 6%;
+}
+
+.Request {
+    width: 8%;
+}
+
+.Location {
+    width: 8%;
+}
+
+.Designation {
+    width: 20%;
+}
+
+.Grade {
+    width: 3%;
+}
+
+.edit {
+    width: 1%;
+}
+
+.HRRF_custom #gridcontent {
+    height: 100%;
+}
+
+
+
+
+/*report employeeskills*/
+
+.HRRF_custom table.p-resources thead tr a, table.dataTable.nowrap th, table.dataTable.nowrap th a {
+    color: black;
+}
+
+.HRRF_custom table.p-resources thead th, .HRRF_custom table.p-resources tbody th, table.dataTable.nowrap th {
+    background-color: #E1F3FF !important;
+    color: black;
+}
+
+#txt1 {
+    color: #133B93;
+    font-size: 20px;
+    margin-left: 3px;
+    margin-top: 5px;
+}
+
+.HRRF_custom table.p-resources thead th, .HRRF_custom table.p-resources tbody th, table.dataTable.nowrap th {
+    background-color: #E1F3FF !important;
+    color: black;
+    font-size: 12px;
+    font-size: 12px;
+}
+
+#skillsReport {
+    background-color: #E1F3FF !important;
+    color: black;
+    font-size: 12px;
+}
+/*.table > tbody > tr > td {
+        padding: 3px;
+    }*/
+
+
+

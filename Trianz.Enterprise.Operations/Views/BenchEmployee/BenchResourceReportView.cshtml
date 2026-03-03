@@ -1,0 +1,152 @@
+﻿@model List<Trianz.Enterprise.Operations.ViewModel.BenchResourceDataViewModel>
+<link href="~/Content/Talento7.css" rel="stylesheet" />
+<link href="~/Content/LayoutHeader.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "BenchEmployee";
+
+}
+
+@*<div class="subpage_header page-header nomargin-top">
+        <p>Projects Summary</p>
+    </div>*@
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+
+    //    $("#btnProcessing").hide();
+    //    $(function () {
+
+    //        $('#tableBenchEmployees').DataTable();
+            
+    //    });
+    //});
+</script>
+<style>
+    #txt {
+        color: #2C2E31;
+        font-size: 16px;
+        /*margin-left: 60px;*/
+        margin-top: 27px;
+    }
+
+    #tableBenchEmployees_length {
+        position: relative;
+        left: 17px;
+        top: 5px;
+    }
+
+    .dataTables_filter {
+        position: relative;
+        top: 6px;
+    }
+
+    .table {
+        width: 98%;
+        max-width: 100%;
+        margin-bottom: 20px;
+        margin-left: 25px;
+        margin: 25px;
+        margin-left: 3px;
+    }
+
+    .Empname {
+        position: relative;
+        bottom: 44px;
+        left: 95px;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+        border-left-width: 0;
+        color: rgb(0, 0, 0);
+        font-size: 12px;
+    }
+
+    div.table-responsive > div.dataTables_wrapper > div.row {
+        margin: 16px;
+        /*background-color: #ffffff;*/
+        margin-top: 5px;
+    }
+
+    .cuswidth {
+        width: 98%;
+        background-color: #ffffff;
+        margin-left: 16px;
+    }
+
+    .col-md-12 {
+        width: 100%;
+        background-color: #F3F4F9;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        padding-top: 8px;
+        white-space: nowrap;
+        position: relative;
+        left: 15px;
+    }
+</style>
+
+<div class="col-md-12">
+    <div class="subpage_header page-header nomargin-top">
+        <div class="text-left pull-left myskills_div">
+            <p id="txt" style="margin-left: 4px;">BENCH RESOURCES</p>
+        </div>
+        <div class="pull-right text-right myskills_div">
+
+
+            <div>
+                <button id="btnExportToExcel" type="button" style="position: relative; background-color: white; border: white; float: right; color: #004BBB; border: 1px solid #004BBB; border-radius: 6px; padding: 6px 25px;top: 21px;right: -1px;">
+                    <img src="~/Content/images/Report_icon.svg" /> Export <span class="caret"></span>
+                </button>
+                @*<button id="btnExportToExcel" type="button" style="border: none;background-color: white;margin-right: 3px;"> <img src="~/Content/images/xlsimg.png" data-toggle="tooltip" data-placement="left" title="Export to Excel" class="xlms" style="width: 43px;height: 44px;display:inline-block;margin-top: 26px;margin-right: 18px;" alt="xlmsimg"></button>*@
+            </div>
+
+        </div>
+        <div class="clear-both"></div>
+    </div>
+</div>
+
+<link href="~/Content/dataTables.bootstrap.css" rel="stylesheet">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+   
+    $('#btnExportToExcel').click(function () {
+        //$(this).hide();
+        $("#btnProcessing").show();
+
+        $.ajax({
+            url: "@Url.Action("ExportBenchReport", "BenchEmployee")",
+            data: "",
+            type: "POST",
+            datatype: "JSON",
+            cache: false,
+            success: function (response) {
+                if (response == "success") {
+                    window.location = "@Url.Action("GenerateBenchReport", "BenchEmployee")";
+
+                    setTimeout(function () {
+                        $("#btnExportToExcel").show();
+                        $("#btnProcessing").hide();
+                    }, 10000);
+                }
+                else if (reresponsesult == "Error")
+                       {
+                        window.location.href = '@Url.Action("Error", "Error")';
+                        }
+                else if (response== "Sessionexpired") {
+                window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                    }
+            },
+            error: function (error) {
+                alert(error.statusText);
+            }
+        });
+    });
+</script>

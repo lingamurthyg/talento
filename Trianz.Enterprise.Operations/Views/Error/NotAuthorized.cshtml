@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Not Authorized";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>TR-Trianz Corporate Operations</title>
+    <!-- Bootstrap css -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/step-progressbar.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Added by Sarath -->
+
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/validator.js"></script>
+    <!-- Added by Sarath -->
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jqChart.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jqRangeSlider.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/themes/le-frog/jquery-ui-1.8.20.css" />
+
+    <script src="@Url.Content("~/Scripts/jquery.mousewheel.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqChart.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqRangeSlider.min.js")" type="text/javascript"></script>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/custom.css" rel="stylesheet">
+    <link href="~/Content/datepicker.css" rel="stylesheet" />
+
+
+
+    <style type="text/css">
+        .bootbox .modal-dialog {
+            left: 0%;
+        }
+
+        body.modal-open {
+            margin-right: 0px;
+        }
+    </style>
+</head>
+<div class="container HRRF_custom" style="width:1173px;; max-width: 3018px;margin-left: 40px;">
+    <div id="divBusyContent" style="margin:auto;position:absolute;width:90%;display: none;">
+        <img id="divLoader1" src="@Url.Content("~/Content/images/loading.gif")" style="margin-left:40%;z-index:99;"
+             alt="Loading ..." width="70" />
+    </div>
+
+
+
+    <div class="HRRF_header nopadding">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <a href="#">
+                    @*<img src="~/Content/images/trianz-logo.png" width="170" height="65" alt="Trianz Logo">*@
+                    <img src="~/Content/images/Talento-Logo.png" alt="Talento" />
+                </a>
+            </div>
+            <div class="col-md-6 col-sm-12 pull-right  ">
+
+                <div><br /></div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+
+        <div class="panel-body text-center">
+            <br /><br />Your Session got expired. Please close all browser windows and signin again.<br><br />
+
+            <div>
+                <a href="~/TrHome/Index" class="btn btn-default">SignIn</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="clear-both space10"></div>
+    <div class="container row footer" style="background-color: #000000;">
+        <p>
+            <a href="mailto:Talento_Support@trianz.com" class="pull-left" style="color: whitesmoke">Copyright © 2022 Trianz, All rights reserved.</a>
+        </p>
+        <p>
+            <a id="um" href="@Url.Content(string.Concat("~/Content/FAQDoc/User Manual.pdf"))" target="_blank" class="pull-left " style="color:whitesmoke;margin-left:10px">User Manual</a>
+        </p>
+        <p>
+            @*&copy; @DateTime.Now.Year - TRZ Operations &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
+
+            <a id="a1" href="@Url.Content(string.Concat("~/Content/FAQDoc/TMGFAQs.docx"))" target="_blank" class="pull-right" style="color: whitesmoke">Referral Policy | Disclaimer | Terms of use | Privacy Policy | Cookie Policy</a>
+        </p>
+    </div>
+</div>

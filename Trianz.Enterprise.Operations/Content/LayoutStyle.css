@@ -1,0 +1,67 @@
+﻿body {
+}
+
+/*layoutheaders style*/
+.navbar-nav > li > .dropdown-menu {
+    margin-top: 21px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    z-index: 100000;
+}
+
+.HRRF_custom .navbar {
+    position: relative;
+    height: 44px;
+    top: -10px;
+}
+
+
+#MenuTrianzOperations {
+    margin-top: 20px;
+}
+
+#MenuEmployee {
+    position: relative;
+    top: 17px;
+}
+
+#MenuApprovals {
+    position: relative;
+    top: 17px;
+}
+
+#report1 {
+    position: relative;
+    top: 17px;
+}
+
+#assignment1 {
+    position: relative;
+    top: 17px;
+}
+
+#dashboard1 {
+    position: relative;
+    top: 20px;
+}
+
+.HRRF_custom .navbar {
+    position: relative;
+    top: 20px;
+}
+
+#competency1 {
+    position: relative;
+    top: 20px;
+}
+
+#MenuSignout {
+    position: relative;
+    top: 15px;
+}
+
+#MenuCluster {
+    position: relative;
+    top: 17px;
+}
+

@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Trianz.Enterprise.Operations.Models
+{
+    public class EmployeeCountry
+    {
+        //public string GradeCode { set; get; }
+        //public int UnitedStates { set; get; }
+        //public int India { set; get; }
+        //public int UnitedKingdom { set; get; }
+        //public int Dubai { set; get; }
+        //public int Australia { set; get; }
+        public string CountryName { set; get; }
+
+        public int sZero { set; get; }
+
+        public int sOne { set; get; }
+        public int sTwo { set; get; }
+        public int sthree { set; get; }
+        public int sFour { set; get; }
+
+        public int sFive { set; get; }
+        public int sSix { set; get; }
+
+        public int sSeven { set; get; }
+        public int sEight { set; get; }
+
+        public int sNine { set; get; }
+        public int sTen { set; get; }
+        public int sEleven { set; get; }
+        public int sTwelve { set; get; }
+        public int sA { set; get; }
+        public int sC { set; get; }
+        public int sH { set; get; }
+
+    }
+}

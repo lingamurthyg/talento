@@ -1,0 +1,1540 @@
+﻿@*@model List<Trianz.Enterprise.Operations.Models.EmployeeInfoDetails>*@
+
+@model  Trianz.Enterprise.Operations.Models.ValidationModel
+
+@{
+    var ProjectAssignmentGrid = new WebGrid((IEnumerable<dynamic>)ViewData["ProjectAssignmentDetails"], canPage: true, canSort: true, rowsPerPage: 10, selectionFieldName: "SelectedRow");
+    var SearchedSkillsGrid = new WebGrid((IEnumerable<dynamic>)ViewData["SearchedEmployeeSkills"], canPage: true, canSort: true, rowsPerPage: 10, selectionFieldName: "SelectedRow");
+    var reportingmanager = ViewData["reportingmanager"];
+    var TrainingGrid = new WebGrid((IEnumerable<dynamic>)ViewData["EmployeeTrainingDetails"], canPage: true, canSort: true, rowsPerPage: 10, selectionFieldName: "SelectedRow");
+
+    var EmployeeSearch = ViewData["EmployeeSearch"];
+}
+<style>
+    /*table {
+        table-layout: fixed;
+    }*/
+    label {
+        margin: 30px 0;
+    }
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #004BBB;
+        border-color: #004BBB;
+    }
+    .btn-primary {
+        color: #fff;
+        background-color: #004BBB;
+        border-color: #004BBB;
+    }
+    .request_header1 {
+        /*background: #fff;*/
+        border-bottom: 1px solid #EAECF2;
+        position: relative;
+        top: -61px;
+    }
+
+    hr {
+        margin-bottom: 10px !important;
+        /* border: 0; */
+        border-top: 1px solid #004BBB !important;
+        top: 7px;
+        position: relative;
+        right: -3px;
+        width: 101%;
+    }
+
+    .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+        z-index: 2;
+        color: #fff;
+        cursor: default;
+        background-color: #004BBB;
+        border-color: #004BBB;
+    }
+
+    #tableemployee_length {
+        position: relative;
+        top: 17px;
+        left: 19px;
+    }
+
+    #tableemployee_filter {
+        position: relative;
+        left: -19px;
+        bottom: -19px;
+
+    }
+
+    #btnExportToExcel {
+        background-color: #ffffff;
+    }
+
+
+    .ui-dialog .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
+        background-color: white;
+        border-color: white;
+        background-image: none;
+        border-radius: 0px !important;
+    }
+
+        .ui-dialog .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix .ui-dialog-title {
+            color: black;
+            position: relative;
+            top: -6px;
+            left: 27px;
+        }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: black;
+        cursor: default;
+        background-color: white;
+        border: 1px none;
+        border-bottom-color: transparent;
+    }
+
+    #ModalpopSearch {
+        overflow-x: hidden;
+    }
+
+    #btnSearchEmployee {
+        background-color: #004BBB;
+        border: none !important;
+        outline: none;
+        outline-offset: 0px;
+        margin: 23px 32PX;
+    }
+
+    #ModalpopSearch {
+        overflow-x: hidden;
+        margin-left: 12px;
+    }
+
+    .ui-dialog .ui-dialog-buttonpane button {
+        position: relative;
+        width: 116px;
+        left: -4px;
+        top: 7px;
+    }
+
+    .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+        height: auto;
+        width: 1170px;
+        top: 60px;
+        left: 47px;
+        display: block;
+        z-index: 101;
+    }
+
+    .nav-item.active > a > p > .iconify {
+        top: 0px;
+        left: -27px;
+        margin-top: -34px;
+        width: 54px;
+        height: 23px;
+        opacity: 1;
+        background: url('https://api.iconify.design/bi/check2-circle.svg?color=white') no-repeat center center / contain !important;
+        content: url('https://api.iconify.design/bi/check2-circle.svg?color=white') !important;
+        /* background-color: white; */
+    }
+
+    .ui-dialog .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
+        position: relative;
+        top: 20px;
+        left: -9px
+    }
+
+    .nav-item:not([class^="active"]) > a > p > .iconify {
+        top: 0px;
+        left: -27px;
+        margin-top: -34px;
+        width: 54px;
+        height: 23px;
+        opacity: 1;
+        background: url('https://api.iconify.design/bi/check2-circle.svg?color=black') no-repeat center center / contain;
+        content: url('https://api.iconify.design/bi/check2-circle.svg?color=black');
+        /* background-color: white; */
+    }
+
+    .nav-item {
+        background-color: #F3F4F6;
+        color: white;
+    }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: white;
+        cursor: default;
+        background-color: #133B93;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+    }
+
+    .nav-tabs > li {
+        float: left;
+        margin-bottom: 0px;
+        /*margin-left: 7px;*/
+        color: white;
+        background-color: #E4DEDE;
+        border: 1px solid #c9c8c8;
+    }
+
+        .nav-tabs > li > a {
+            margin-right: 0px !important;
+        }
+
+    .nav-item.active > .box.arrow-right:after {
+        content: " ";
+        position: absolute;
+        right: -15px;
+        top: 20px;
+        border-top: 10px solid transparent;
+        border-right: none;
+        border-left: 15px solid #133B93;
+        border-bottom: 10px solid transparent;
+        color: white;
+    }
+
+    .nav-item.active {
+        z-index: 9999;
+    }
+
+    .title-heading {
+        vertical-align: super;
+    }
+
+    .nav {
+        padding-left: 9px;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+        border-bottom-width: 0;
+        text-align: left;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .nav-item.active {
+        z-index: 70;
+    }
+
+    .ui-dialog {
+        /*font-size: 13px !important;
+        font-weight: 500 !important;
+        font-family: Arial !important;
+        z-index: 1000;*/
+        margin-top: 158px;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        position: relative;
+        left: 20px;
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate {
+        position: relative;
+        left: -17px;
+    }
+</style>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+														   
+
+
+<link href="~/Content/dataTables.bootstrap.css" rel="stylesheet">
+<link href="~/Content/LayoutHeader.css" rel="stylesheet" />
+													   
+
+
+<link href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.min.css" rel="stylesheet">
+
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/responsive.bootstrap.min.js"></script>
+
+<link href="~/Content/dataTables.bootstrap.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.min.css" rel="stylesheet">
+
+
+<link href="~/Content/LayoutHeader.css" rel="stylesheet" />
+<link href="~/Content/Talento7.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+
+
+																						  
+@*<script src="~/Scripts/bootstrap.min.js"></script>*@
+																
+@*<script src="~/Scripts/bootstrap.min.js"></script>*@
+
+
+
+
+
+<style>
+
+    #txt {
+        color: black;
+        font-size: 17px;
+        margin-left: 17px;
+        margin-top: 3px;
+    }
+
+    .table-responsive {
+        min-height: .01%;
+        /*overflow-x: auto;*/
+    }
+
+    .btn-outline-primary:hover {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        position: relative;
+        margin-bottom: 34px;
+        font-weight: 700;
+    }
+
+    .HRRF_custom .control-label {
+        text-align: left;
+        margin: 5px;
+    }
+
+    #footer {
+        position: fixed;
+        bottom: 0;
+        /* Height of the footer*/
+    }
+
+    #btnExportToExcel {
+        color: #004BBB;
+        border: 1px solid #004BBB;
+        border-radius: 6px;
+        padding: 6px 25px;
+    }
+
+    /*fornavs*/
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+        color: black !important;
+        background-color: none !important;
+    }
+
+        .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+            color: #004BBB;
+            background-color: none !important;
+        }
+
+            .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+                color: #000;
+                background-color: none !important;
+            }
+
+                .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+                    color: #004BBB;
+                    background-color: none !important;
+                }
+
+    .nav-pills > li.active > a {
+        color: #000;
+        background-color: none !important;
+    }
+
+        .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+            background-color: none !important;
+        }
+
+    .nav > li.active:hover, .nav > li.active:focus {
+        background-color: none !important;
+        border-bottom: 0px !important;
+    }
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        color: #004BBB !important;
+        background-color: none !important;
+    }
+
+        .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+            color: #004BBB !important;
+            background-color: none !important;
+        }
+
+    .nav > li > a:focus, .nav > li > a:hover {
+        text-decoration: none !important;
+        background-color: none !important;
+        border-bottom: 2px solid #004BBB !important;
+    }
+
+    .nav > li > a:focus, .nav > li.active > a {
+        text-decoration: none !important;
+        background-color: none !important;
+        border-bottom: 2px solid #004BBB !important;
+    }
+
+    .nav-pills > li > a {
+        border-radius: 0px !important;
+    }
+
+    .nav-justified {
+        width: 50%;
+        margin-top: 21px;
+    }
+
+    .HRRF_custom table.p-resources thead th, .HRRF_custom table.p-resources tbody th, table.dataTable.nowrap th {
+        background-color: #D6DCE3 !important;
+        color: black;
+    }
+</style>
+@if (Model.EmpSkillInfo != null)
+{
+    <div id="esearch">
+        <div class="col-md-5 nopadding-left">
+            <div class="clear-both space10"></div>
+            <p id="txt"><b>EMPLOYEE SEARCH</b></p>
+        </div>
+
+        <hr />
+        <div class="clear-both space5" style="height:5px;"></div>
+        @*<div>*@
+        @*<button id="btnExportToExcel" type="button" style="border: none;background-color: white; width: 16px; position: relative;top: 0px;left: 1180px;height: 15px;">
+                <img src="~/Content/images/xlsimg.png" data-toggle="tooltip" data-placement="left" title="Export to Excel" class="xlms" style="width: 43px; height: 44px;display:block;margin-top: -14px;margin-left: -24px;" alt="xlmsimg">
+            </button>*@
+
+
+
+        @*<div>
+                <button class="btn btn-outline-primary" type="button" id="btnNotification" style="position: relative; left: 1043px; bottom: 44px;color: #fff; background-color: #007bff; border-color: #007bff;">
+                    <i class="fa fa-envelope" aria-hidden="true"> Send Report</i>
+                </button>
+            </div>*@
+
+
+        @*</div>*@
+
+
+        <div class="row" style="margin:0px">
+
+
+
+            @*<div class="col-sm-3">
+                <div>
+                <label class="col-lg-12 control-label">Resume Not Upload Emp Count</label>
+                <div class="col-md-3">
+                <input type="text" value=@ViewBag.ResumeNotupdatedcount class="form-control" id="txtresumenot" style="width: 200%; position: relative; left: 226px; bottom: 29px;" disabled>
+                </div>
+                </div>
+                </div>*@
+            <div class="row" id="employeesearch" style="margin-left: 4px;margin-top: 12px;">
+                <div class="col-sm-2">
+                    <label>Skills Upload:</label>
+
+                    @ViewBag.SkillsupdatedCount
+
+                </div>
+
+                <div class="col-sm-3">
+
+                    <label>Skills Not Upload:</label>
+
+                    @ViewBag.SkillsnotupdatedCount
+                    @*<input type="text" value=@ViewBag.SkillsnotupdatedCount class="form-control" id="txtskillnot" style="width: 200%; position: relative; left: 226px; bottom: 29px;" disabled>*@
+
+
+                </div>
+
+                <div class="col-sm-2">
+                    <div>
+                        <label>Resume Upload:</label>
+
+                        @ViewBag.Resumecount
+
+                        @*<input type="text" value=@ViewBag.Resumecount class="form-control" id="txtresume" style="width: 200%; position: relative; left: 226px; bottom: 29px;" disabled>*@
+
+                    </div>
+                </div>
+				  
+                <div class="col-sm-3">
+                    <label>Resume Not Upload:</label>
+
+                    @ViewBag.ResumeNotupdatedcount
+
+                </div>
+            </div>
+			  
+
+            @*for hrrfnumber*@
+
+
+            <div class="" id="TRSearch" style="margin-top: 16px;">
+                <div class="row" style="margin-left: 0px;">
+                    <div class="col-sm-2">
+                        <label>TR Number:</label>
+
+                        @ViewBag.HrrfNumberCount
+                    </div>
+
+                    <div class="col-sm" style="">
+                        <label>Criticality:</label>
+
+                        @ViewBag.CriticalityCount
+                    </div>
+                    <div style="position: relative;bottom: 54px;left: 309px;">
+                        <div class="col-sm-3" style="">
+                            <label>Assignment Start Date:</label>
+
+                            @ViewBag.StartDateCount
+
+                        </div>
+                        <div class="col-sm-2" style="width: 24%;">
+                            <label>Assignment End Date:</label>
+
+                            @ViewBag.EndDateCount
+
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Status:</label>
+
+                            @ViewBag.StatusCount
+
+                        </div>
+
+                        <div class="col-sm">
+                            <label style="margin-left: -218px;">Grade:</label>
+
+                            @ViewBag.GradeCount
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: -53px;margin-left: 0px;position: relative;top: -57px;">
+                    <div class="col-sm-12" style="padding-top:5px;">
+                        <div class="pull-left" style="padding-top:7px; max-width:800px;"> <p> <strong>Skills:</strong> @ViewBag.SkillsCount</p></div>
+
+                       
+                            <div id="empnum" class="form-inline">
+                                <div class="form-group" style="float: right;position: relative;left: -78px;">
+                                    <label class="control-label" for="EmpId1"></label>
+                                    @Html.TextBox("EmpId1", ViewBag.CurrentFilter as string, new { @class = "form-control", onchange = "submit();", @placeholder = "Enter Employee ID" })
+                                </div>
+                                <button class="btn btn-primary" type="button" id="btnSearchEmployee1" style="float: right;left: 168px;position: relative;">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+
+
+                            </div>
+                      
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            @*for hrrfnumber*@
+									   
+
+            <div class="col-sm-2 hhss1" style="position: relative;left: 1032px;bottom: 146px;">
+                <button id="btnExportToExcel" type="button" onclick="location.href='/EmployeeSearch/ExportEmployeeDetails'">
+                    <img src="~/Content/images/Report_icon.svg" /> Export <span class="caret"></span>
+                </button>
+                @*<button id="btnExportToExcel" type="button" onclick="location.href='/EmployeeSearch/ExportEmployeeDetails'" style="border: none;background-color: white; width: 16px;height: 15px;">
+                        <img src="~/Content/images/xlsimg.png" data-toggle="tooltip" data-placement="left" title="Export to Excel" class="xlms" style="width: 43px; height: 44px;display:block;margin-top: -14px;margin-left: -24px;" alt="xlmsimg">
+                    </button>*@
+            </div>
+
+            <div class="col-sm-2  hhss" style="position: relative;left: 1032px;bottom: 219px;">
+                <button id="btnExportToExcel" type="button" onclick="location.href='/EmployeeSearch/ExportEmployeeDetails'">
+                    <img src="~/Content/images/Report_icon.svg" /> Export <span class="caret"></span>
+                </button>
+                @*<button id="btnExportToExcel" type="button" onclick="location.href='/EmployeeSearch/ExportEmployeeDetails'" style="border: none;background-color: white; width: 16px;height: 15px;">
+                        <img src="~/Content/images/xlsimg.png" data-toggle="tooltip" data-placement="left" title="Export to Excel" class="xlms" style="width: 43px; height: 44px;display:block;margin-top: -14px;margin-left: -24px;" alt="xlmsimg">
+                    </button>*@
+            </div>
+
+																																																										
+					   
+        </div>
+
+    </div>
+
+    <div class="forscroll" style="display: none" id="ModalpopSearch">
+
+        <div>
+
+            @*newly added for tabs*@
+
+            <ul id="tab_profile_details" class="nav nav-pills nav-justified">
+                <li id="actprofile" class="active"><a data-toggle="tab" href="#home-v" role="tab" id="profile1" style="background-color: #ffffff;"><b>Project Assignments</b></a></li>
+                <li><a data-toggle="tab" href="#profile-v" role="tab" id="myskills" style="background-color: #ffffff;"><b>Skills</b></a></li>
+                <li><a data-toggle="tab" href="#messages-v" role="tab" style="background-color: #ffffff;"><b>Trainings</b></a></li>
+
+                @*<li><a data-toggle="tab" href="#tabEmpProfile" role="tab" style="background-color: #ffffff;"><b>Documents</b></a></li>*@
+            </ul>
+
+
+
+            <br />
+            <hr style="margin: 13px 0;position: relative;top: -32px;color: black;" />
+
+
+            <div class="con">
+
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="home-v" role="tabpanel">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @*<div class="col-sm-3">*@
+
+                                @*<div id="divempid"></div> <div id="divfirstname"></div> <div id="divmidlename"></div> <div id="divlasttname"></div>
+
+                                    <div id="divDesignation"></div>*@
+
+                                @*<div class="row">
+                                                <div class="col-lg-6 form-group">
+                                                    <label class="col-lg-6 control-label">Emp Id :</label>
+                                                    <div class="col-lg-6">
+                                                        <div id="divempid">
+
+                                                         </div>
+                                                        </div>
+                                        </div>
+                                        <div class="col-lg-6 form-group">
+                                            <label class="col-lg-6 control-label">Emp Name :</label>
+                                            <div class="col-lg-6">
+                                                <div id="divfirstname"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                <div id="divGridContent1" class="table table-responsive" style="margin-top: -43px;">
+
+
+
+                                    <div class="row" style="display:flex;margin: 23px 0 0 20px;">
+                                        <div class="form-group">
+                                            <label>Employee Id :</label>
+                                            @*<div id=""></div>*@
+                                            <span id="divempid" style="margin-left:12px"></span>
+                                        </div>
+                                        <div class="form-group" style="position: relative;left: 53px;">
+                                            <label>Employee Name :</label>
+                                            <div id="divfirstname" style="margin-left:130px; margin-top:-53px"></div>
+                                        </div>
+                                        <div class="form-group" style="position: relative;left: 107px;">
+                                            <label>Designation :</label>
+
+                                            <div id="divDesignation" style="margin-left:100px; margin-top:-53px"></div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div id="divEmpDetails"></div>
+
+
+                                </div>
+
+                                @*</div>*@
+                                <table class="table table-striped table-bordered" cellspacing="0" style="margin: -21px 0; width:95%; text-align:left;margin-top: -37px;">
+                                    <thead>
+                                        <tr style="background-color: #D6DCE3 !important; color: black; font-size: 12px;">
+                                            <th>Project Name</th>
+                                            <th>Assigned By</th>
+                                            <th>Utilization(%)</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="projectAssignmentdata"></tbody>
+
+                                </table>
+
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="profile-v" role="tabpanel">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+
+                                <table class="table table-striped table-bordered" cellspacing="0" style="margin: -21px 0;width:95%; text-align:left;margin-top: -18px;">
+                                    <thead>
+                                        <tr style="background-color: #D6DCE3 !important; color: black; font-size: 12px;">
+                                            <th>Skill Name</th>
+                                            <th>Competency Name</th>
+                                            <th>Expertise Level</th>
+                                            @*<th>Technology Last Used</th>
+                                                <th>Skill Status</th>
+                                                <th>Approver</th>*@
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="skillbody"></tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="messages-v" role="tabpanel">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <table class="table table-striped table-bordered" cellspacing="0" style="margin: -21px 0; width:95%;text-align:left;margin-top: -21px;">
+                                    <thead>
+                                        <tr style="background-color: #D6DCE3 !important; color: black; font-size: 12px;">
+                                            <th>Program Name</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Attendance Status</th>
+                                            <th>Total Hours</th>
+                                            <th>Source</th>
+                                            <th>Category</th>
+                                            <th>Mode</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Trainingdata"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="modal fade" tabindex="-1" id="Modalpop" role="dialog">
+
+
+
+        <div class="modal-dialog ui-front" style="width:90%">
+            <div class="modal-content" style="width: 738px !important; height:550px; right: 446px;position:relative; background-color: #f8f8f8; overflow-y: hidden;">
+
+                @*for prodution*@
+                @*left: 190px;*@
+                @*<div class="modal-content" style="width: 738px !important; height:550px; left: 190px;position:relative; background-color: #f8f8f8; overflow-y: hidden;">*@
+                @*for prodution*@
+
+                <div class="modal-header" style="background-color: #337ab7;margin: 4px;">
+                    <h4 class="modal-title text-info font-weight-bold HRRF_custom .subpage_header" style="align-content:center;color:white;font-size: 16px;position: relative; left: 12px;">
+                        Employee  Profile
+                    </h4>
+
+
+
+
+                </div>
+                <div class="modal-body" style="max-height:300px; overflow-y:auto; overflow-x:hidden; margin:20px">
+                    <div class="col-md-3">
+                        <label style="margin-left:115px">To :</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="txtEmail" style="width: 200%;">
+                    </div>
+                </div>
+
+                <div class="modal-body" style="max-height:300px; overflow-y:auto; overflow-x:hidden; margin:20px">
+                    <div class="col-md-3">
+                        <label style="margin-left:84px">Subject :</label>
+                    </div>
+                    <div class="col-md-4">
+                        @*<input type="text" ,ViewBag.CurrentFilter as string,class="form-control" id="" style="width: 120%;">*@
+                        @Html.TextBox("txtsubject", ViewBag.Subject as string, new { @class = "form-control", @style = "width:200%" })
+
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height:300px; overflow-y:auto; overflow-x:hidden; margin:20px">
+                    <div class="col-md-3">
+                        <label style="margin-left:76px">Message :</label>
+                    </div>
+                    <div class="col-md-4">
+                        @*<input type="text" class="form-control" id="txtEmail" style="width: 120%;">*@
+                        @*<textarea rows="4" cols="75" class="edit-mode" id="txtmessage">*@
+                        @Html.TextArea("txtmessage", ViewBag.Message as string, new { @class = "form-control", @style = "width:200%;height: 150px;" })
+
+                        @*</textarea>*@
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="margin: 57px 3px;">
+                    <button id="btnsendmail" name="btnsendmail" type="button" class="btn btn-primary">Send mail</button>
+                    <button type="button" class="btn btn-default" id="btnclose" data-dismiss="modal" style="border-color: #004BBB;">Close</button>
+                </div>
+
+            </div>
+
+
+
+            </div>
+    </div>
+
+
+
+    <div class="request_header1">
+        <div class="row" id="searchfields" style="background: #fff;margin: 0px;width: 103%;">
+            @using (Html.BeginForm("Index", "EmployeeSearch", FormMethod.Get))
+            {
+                <div class="col-sm-3">
+                    <div>
+                        <label>Account Name</label>
+                        <div class="form-group">
+
+                            @*@Html.DropDownList("txtOpportunity", new SelectList((System.Collections.IEnumerable)ViewData["_AccountName"], "opportunityname", "opportunityname"),
+                                               "Select an option", new { @class = "form-control", @onchange = "funcGetOpportunityByNameorCode('oppName',this.value);" })*@
+                            @Html.DropDownList("ddlAccountName", new SelectList((System.Collections.IEnumerable)ViewData["_AccountName"], "Account", "Account"),
+                            "Select AccountName", new { @class = "form-control", onchange = "submit();", @Style = "margin-top: -61px;margin-left: 105px; width: 186px; " })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div>
+                        <label >Billing Status</label>
+                        <div class="form-group">
+                            @Html.DropDownList("ddlStatus", ViewData["StatusType"] as SelectList,
+                            "Select Status", new { @class = "form-control", onchange = "submit();", @Style = "margin-top: -61px;margin-left: 105px; width: 180px; " })
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-sm-2" >
+                    <label>Skills</label>
+                    <div class="form-group">
+                        @*<input type="text" class="form-control" id="Searchskill" placeholder="Enter Skill" style="width: 100%;">*@
+                        @Html.TextBox("Searchskill", ViewBag.CurrentFilter as string, new { @class = "form-control", onchange = "submit();", @placeholder = "Enter Skill", @Style = "margin-top: -61px;margin-left:46px; width: 180px; " })
+                    </div>
+                </div>
+
+                <div class="col-sm-2" style="margin-left: 37px;" >
+                    <label>Employee ID</label>
+
+                    <div class="form-group">
+                        @*<input type="number" class="form-control" id="EmpId" name="txtSearchEmpId" placeholder="Enter Emp ID">*@
+
+                        @Html.TextBox("EmpId", ViewBag.CurrentFilter as string, new { @class = "form-control", onchange = "submit();", @placeholder = "Enter Emp Id", @Style = "margin-top: -61px;margin-left: 105px; width: 115px; " })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-1">
+                    <div id="search">
+                        <button class="btn btn-primary" type="button" id="btnSearchEmployee">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+        
+
+            <div style="background:#FFFFFF;width: 103%;">
+                @*<div class="table table-responsive" id="divemp">*@
+                <div class="table" id="divemp">
+                    <table id="tableemployee" class="table table-striped table-bordered  nowrap" cellspacing="0" style="margin: 6px;width: 97%;color:#000000; font-size: 12px;">
+                        <thead id="thead">
+                            <tr style="background-color: #D6DCE3 !important; color: black; font-size: 10px;">
+                                <th style="width:40px">Emp Id</th>
+
+                                <th style="width: 120px;">Name</th>
+
+                                <th style="width:70px">Project Code</th>
+                                <th style="width:134px;">Project Name</th>
+                                <th style="width:134px;">Account Name</th>
+                                <th style="width: 60px;">Utilization (%)</th>
+                                <th class="grade1" style="width:30px">Grade</th>
+
+                                <th style="width:70px">Billing Status</th>
+                                <th style="width:70px">Start Date</th>
+                                <th style="width:70px">End Date</th>
+                                <th style="width: 113px;">Skill Name</th>
+                                <th style="width:70px">Match (%)</th>
+
+                                @*<th>Assigned_By</th>
+        <th>Assigned_Date</th>*@
+
+                                @if (ViewBag.HrrfNumberCount != null)
+
+                                {
+                                    <th style="width:70px">DL/Email/Propose</th>
+
+                                }
+                                else
+                                {
+                                    <th style="width:70px">DL/Email</th>
+
+                                }
+
+
+
+
+                                @*<th id="propose" style="width:70px">DL/Email</th>*@
+                                @*<th id="propose1" style="width:70px">DL/Email/Propose</th>*@
+
+
+                                <th style="display:none;"></th>
+                                @*<th>Resume</th>
+        <th>Email</th>*@
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.EmpSkillInfo)
+                            {
+                            <tr>
+
+                                <td>
+                                    @*<a href="#" id="">
+
+            </a>*@
+                                    <a href="#" class="clsempid" type="hidden" id="Emppopup" data-docId="@item.EmployeeId" style="position: relative;">
+                                        @item.EmployeeId
+                                    </a>
+
+
+                                </td>
+                                @*<td> <input type="checkbox" name="chkRow" id="chkEmployee" class="chkRow" value="@item.EmployeeId"></td>*@
+                                <td style="cursor: pointer;" title="@item.EmployeeName">
+                                    @((item.EmployeeName != "" && item.EmployeeName != null) ? item.EmployeeName.Length < 20 ? item.EmployeeName : item.EmployeeName.Substring(0, 11) + " ..." : string.Empty)
+                                </td>
+
+                                @*<td><a href="mailto:@item.EmailId">@item.EmployeeName</a></td>*@
+                                @*<td><a href="mailto:@item.EmailId">@item.EmailId </a></td>*@
+                                <td>@item.ProjectCode</td>
+                                @*<td>@item.ProjectName</td>*@
+                                <td style="cursor: pointer;" title="@item.ProjectName">
+                                    @((item.ProjectName != "" && item.ProjectName != null) ? item.ProjectName.Length < 20 ? item.ProjectName : item.ProjectName.Substring(0, 15) + " ..." : string.Empty)
+                                </td>
+                                <td style="cursor: pointer;" title="@item.AccountName">
+                                    @((item.AccountName != "" && item.AccountName != null) ? item.AccountName.Length < 20 ? item.AccountName : item.AccountName.Substring(0, 15) + " ..." : string.Empty)
+                                </td>
+                                <td style="width: 60px;">@item.Utilization</td>
+                                <td class="grade1">@item.Grade</td>
+                                <td style="cursor: pointer;" title="@item.BillingStatus">
+                                    @((item.BillingStatus != "" && item.BillingStatus != null) ? item.BillingStatus.Length < 10 ? item.BillingStatus : item.BillingStatus.Substring(0, 10) + " ..." : string.Empty)
+                                </td>
+
+
+                                <td>@(item.StartDate == null ? "" : @Convert.ToDateTime(item.StartDate).ToString("dd-MMM-yyyy"))</td>
+                                <td>@(item.EndDate == null ? "" : @Convert.ToDateTime(item.EndDate).ToString("dd-MMM-yyyy"))</td>
+
+
+                                <td style="cursor: pointer;" title="@item.SkillName">
+                                    @((item.SkillName != "" && item.SkillName != null) ? item.SkillName.Length < 20 ? item.SkillName : item.SkillName.Substring(0, 15) + " ..." : string.Empty)
+                                </td>
+                                @if (item.Percentage != 0)
+                                {
+
+                                    <td>@Math.Round(item.Percentage)</td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+
+
+                                @*<td>
+            @(item.ResumeFlag == 0 ? new HtmlString(string.Empty) : Html.ActionLink("Download", "FileDownload", new { EmployeeID = item.EmployeeId }))
+        </td>*@
+                                @*<td>@item.Assigned_By</td>
+        <td>@(item.Assigned_Date == null ? "" : @Convert.ToDateTime(item.Assigned_Date).ToString("dd MMM yyyy"))</td>*@
+                                <td>
+                                    @if (item.ResumeFlag == 0)
+                                    {
+                                        <a href="#" onclick="EmployeeSubmit(@item.EmployeeId)" aria-hidden="true" id="hrrfEmpId" title="Propose">
+                                            <img src="~/Content/images/ProposeIconFinal.png" style="width: 16px;float: right;" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="fa-download1" aria-hidden="true" id="hdnEmployeeId" data-docId="@item.EmployeeId" title="Resume">
+
+                                            <img src="~/Content/images/DownloadIcon.png" style="width: 22px;" />
+
+                                        </a>
+                                        <a href="#" class="testMailPopUp" aria-hidden="true" id="hdnEmpId'@item.EmployeeId'" data-docId="@item.EmployeeId" title="Email">
+
+                                            <img src="~/Content/images/Email.png" style="width: 18px;margin-left: 19px;" />
+
+                                        </a>
+                                        <a href="#" onclick="EmployeeSubmit(@item.EmployeeId)" aria-hidden="true" id="hrrfEmpId" title="Propose">
+                                            <img src="~/Content/images/ProposeIconFinal.png" style="width: 16px;float: right;" />
+                                        </a>
+                                    }
+
+                                </td>
+
+                                <td style="display:none">@item.SkillsCount</td>
+
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+
+
+
+                @*<div id="divEmpSkillDetails">
+
+                </div>*@
+            </div>
+        </div>
+
+}
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        debugger;
+          @*if ('@ViewData["FIndex"]'=="F") {*@
+            @*$("#Searchskill").val('@ViewData["searchskill"]');*@
+        //}
+        $("#TRSearch").hide();
+        $("#employeesearch").show();
+        $("a#hrrfEmpId").show();
+        $("#searchfields").hide();
+      
+        
+        //$(".hhss1").show();
+        
+        if ('@ViewBag.HrrfNumberCount'!= '') {
+            $("#TRSearch").show();
+            $("#employeesearch").hide();
+            $("#empnum").show();
+            
+            $("a#hrrfEmpId").show();
+            $("#searchfields").hide();
+            $(".hhss1").hide();
+            $(".hhss").show();
+            //$("#propose").text("DL/Email/Propose");
+            $(".grade1").show();
+            $("#EmpId1").val('@ViewBag.empid');
+          
+            
+
+
+     }
+        else {
+            $("#employeesearch").show();
+            $("#empnum").hide();
+            $("#TRSearch").hide();
+            $("a#hrrfEmpId").hide();
+            $("#searchfields").show();
+            $(".hhss1").show();
+            $(".hhss").hide();
+
+            //$("#propose").text("DL/Email");
+            $(".grade1").show();
+
+
+
+        }
+
+
+       function split(val) {
+            return val.split(/,\s*/);
+        }
+        function extractLast(term) {
+            return split(term).pop();
+        }
+        $("#Searchskill").autocomplete({
+                source: function (request, response) {
+                    var Skill = new Array();
+                    $.ajax({
+                        async: false,
+                        cache: false,
+                        type: "POST",
+                        url: "@(Url.Action("GetSkillsListByCompetency", "EmployeeSkills"))",
+                        data: { skill: extractLast(request.term), flag: "" }, //cmptny: $("#txtCompetency").attr('value'),
+                        success: function (data) {
+                            if (data != null && data != "Sessionexpired" && data != "Error") {
+
+
+                                for (var i = 0; i < data.length; i++) {
+                                    Skill[i] = { label: data[i].Key, Id: data[i].Value };
+                                }
+                            }
+                            else if (data == "Sessionexpired") {
+                                window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                            }
+                            else if (data == "Error") {
+                                window.location.href = '@Url.Action("Error","Error")';
+                            }
+                        }
+                    });
+
+                    response(Skill);
+
+                },
+                select: function (event, ui) {
+                    var terms = split(this.value);
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push(ui.item.value);
+                    // add placeholder to get the comma-and-space at the end
+                    terms.push("");
+                    this.value = terms.join(", ");
+                    return false;
+                }
+            });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#EmpId').keydown(function (e) {
+            var key = e.which || e.keyCode;
+            if (key === 13) {
+                e.preventDefault();
+                $('#btnSearchEmployee').click();
+            }
+        });
+
+        $('#EmpId1').keydown(function (e) {
+            var key = e.which || e.keyCode;
+            if (key === 13) {
+                e.preventDefault();
+                $('#btnSearchEmployee1').click();
+
+            }
+        });
+
+        function GetSearchEmpdetails() {
+            jQuery.noConflict();
+            $("#Modalpop").modal("show");
+
+        };
+        function GetEmailDetails() {
+            jQuery.noConflict();
+            $('#Modalpop').modal('toggle');
+
+        };
+        $('#btnSearchEmployee1').click(function () {
+            debugger;
+            //alert(1)
+            var EmpId = $("#EmpId1").val().trim();
+            //alert(EmpId);
+            window.location.href = '@Url.Action("FilterIndex", "EmployeeSearch")' + "?&HRRFNumber=" + '@ViewBag.HrrfNumberCount' + '&EmpId=' + EmpId;
+            $("#EmpId1").val(EmpId);
+        });
+        @*$('#btnSearchEmployee').click(function () {
+            var empID = $('#EmpId').val().trim();
+                //var empID = $(this).attr("data-docId");
+                 var status = $('#ddlStatus').val().trim();
+            var skill = $('#Searchskill').val().trim();
+
+            if (status=='' && skill==''&& empID.length > 0) {
+                $.ajax({
+                    url: '@Url.Action("GetEmployeeDetailsByID", "EmployeeSearch")',
+                    data: { "EmpID": empID },
+                    type: "post",
+                    datatype: "json",
+                    contenttype: 'application/json; charset=utf-8',
+                    async: true,
+                    success: function (data) {
+                        if (data != null && data != "Sessionexpired" && data != "Error") {
+
+                        }
+                        else if (data == "Sessionexpired") {
+                            window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                        }
+                        else if (data == "Error") {
+                            window.location.href = '@Url.Action("Error","Error")';
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+
+            }
+            else {
+                $.ajax({
+                    url: '@Url.Action("Index", "EmployeeSearch")',
+                    data: { "ddlStatus": status, "searchskill": skill, "EmpId": empID},
+                    type: "post",
+                    datatype: "json",
+                    contenttype: 'application/json; charset=utf-8',
+                    async: true,
+                    success: function (data) {
+                        if (data != null && data != "Sessionexpired" && data != "Error") {
+                            $("#divemp").html(data);
+                            $("#divEmpSkillDetails").hide();
+
+                        }
+                       else if (data == "Sessionexpired") {
+                            window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                        }
+                        else if (data == "Error") {
+                            window.location.href = '@Url.Action("Error","Error")';
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+
+            }
+        });*@
+    });
+
+    //$('.clsempid').click(function () {
+    $('.clsempid').click(function () {
+          var empID1 = $(this).attr("data-docId");
+
+
+          var status = $('#ddlStatus').val().trim();
+          var skill = $('#Searchskill').val().trim();
+
+          if (empID1.length > 0) {
+                $.ajax({
+                    url: '@Url.Action("GetEmployeeDetailsByID", "EmployeeSearch")',
+                    data: { "EmpID": empID1 },
+                    type: "post",
+                    datatype: "json",
+                    contenttype: 'application/json; charset=utf-8',
+                    async: true,
+                    success: function (data) {
+                       // alert(data);
+                      //  debugger;
+                        if (data != null && data != "Sessionexpired" && data != "Error") {
+
+                            let training = '';
+                            let project = '';
+                            let skill = '';
+                            let emp = '';
+                           // debugger;
+
+                            div_showAssignment();
+
+                            if (data.Empsearch[0] != null) {
+
+                              //  alert("Employee");
+                                $('#divempid').text(data.Empsearch[0].EmployeeId);
+                                $('#divfirstname').text(data.Empsearch[0].FirstName);
+                                /* $('#divmidlename').text(data.Empsearch[0].MiddleName);*/
+
+                                $('#divDesignation').text(data.Empsearch[0].Designation);
+                                //emp = data.Empsearch.map(i => "<tr><td>" + i.EmployeeId + "</td><td>" + i.FirstName + "</td><td>" + i.MiddleName + "</td><td>" + i.LastName + "</td><td>" + i.Gender + "</td><td>" + i.Designation + "</td><td></tr>");
+                            }
+                        if (data.ProjectAssignmentinfo != null || data.ProjectAssignmentinfo.Count != 0) {
+                                {
+
+                                    project = data.ProjectAssignmentinfo.map(i => "<tr><td>" + i.ProjectName + "</td><td>" + i.Assigned_By + "</td><td>" + i.Utilization + "</td><td>" + moment(i.StartDate).format('DD-MMM-YYYY') + "</td><td>" + moment(i.EndDate).format('DD-MMM-YYYY') + "</td></tr>");
+                                }
+                            if (data.EmployeeSkillInfo != null || data.EmployeeSkillInfo.Count != 0) {
+
+                                    skill = data.EmployeeSkillInfo.map(i => "<tr><td>" + i.Skillname + "</td><td>" + i.CompetincyName + "</td><td>" + i.Expertiselevel + "</td></tr>");
+                                }
+                            if (data.Traininginfo != null || data.Traininginfo.Count != 0 ) {
+                                  training = data.Traininginfo.map(i => "<tr><td>" + i.ProgramName + "</td><td>" + i.StartDate + "</td><td>" + i.EndDate + "</td><td>" + i.AttendanceStatus + "</td><td>" + i.TotalHours + "</td><td>" + i.Source + "</td><td>" + i.Category + "</td><td>" + i.Mode + "</td></tr>");
+                                }
+                                $('#projectAssignmentdata').html(project);
+                                $('#skillbody').html(skill);
+                                $('#Trainingdata').html(training);
+
+                            }
+                        }
+                        else if (data== "Sessionexpired") {
+                            window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                        }
+                          else if (data == "Error")
+                        {
+                           // debugger
+                        window.location.href = '@Url.Action("Error","Error")';
+                    }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        });
+
+
+
+
+/*    $('.').on("click",function () {*/
+
+
+    function div_showAssignment() {
+       // debugger;
+            var isValid = true;
+            //ClearModalData();
+            //var empCode = $("#txtempcode").val();
+            //lid = ValidateTextBox();
+            if (isValid) {
+                $("#ModalpopSearch").dialog({
+                    title: 'Project Assignments & Skills Details',
+                    autoOpen: false,
+                    resizable: false,
+                    height: 400,
+                    width: 1170,
+
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: true,
+                    open: function (event, ui) {
+                        $('.ui-dialog-titlebar-close').hide();
+
+                        //$(this).load(url);
+                    },
+                    buttons: {
+
+                        "Close": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                    ,
+                    close: function (event, ui) {
+                        $(this).dialog('close');
+                    },
+                     submit: function (event, ui) {
+                         //$(this).dialog('submit');
+
+                         savepopup();
+                    }
+                });
+                $("#ModalpopSearch").dialog('open');
+                return false;
+            }
+            else {
+                //var st = GetEmployeeDetails().split(',');
+                //if (st.length > 1) {
+                //    bootbox.alert("Please select employees to assign project");
+                //}
+                //else {
+                //    bootbox.alert("Please select same grade employees");
+                //}
+            }
+        }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+
+
+        function split(val) {
+            return val.split(/,\s*/);
+        }
+        function extractLast(term) {
+            return split(term).pop();
+        }
+
+        var Empid;
+        $("#txtEmail").autocomplete({
+
+        source: function (request, response) {
+                var Empnameids = new Array();
+                /*var email = new Array();*/
+            $.ajax({
+                async: false,
+                cache: false,
+                type: "POST",
+                url: "@(Url.Action("GetEmailst", "EmployeeSearch"))",
+                data: { email: extractLast(request.term) },
+                success: function (data) {
+                    if (data != "null" && data != "Error") {
+                       for (var i = 0; i < data.length; i++) {
+                            Empnameids[i] = { label: data[i].Key, Id: data[i].Value };
+                        }
+                    }
+                     else if (data == "Error") {
+                    window.location.href = '@Url.Action("Error","Error")';
+
+               }
+               }
+            });
+            // response(Empnameids);
+            response(Empnameids.slice(0, 7));
+        },
+            select: function (event, ui) {
+                var terms = split(this.value);
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push(ui.item.value);
+                // add placeholder to get the comma-and-space at the end
+                terms.push("");
+                this.value = terms.join(", ");
+                return false;
+            }
+    });
+
+
+        $(".testMailPopUp").on("click", function () {
+
+            Empid = $(this).attr("data-docId");
+            $('#txtEmail').val('');
+            GetEmailDetails();
+        });
+        function GetEmailDetails() {
+            jQuery.noConflict();
+            $('#Modalpop').modal('toggle');
+
+        };
+
+        $(".fa-download1").on("click", function () {
+            Empid = $(this).attr("data-docId");
+            if (Empid > 0)
+            {
+                window.location = "@Url.Action("FileDownload", "EmployeeSearch")" + "?EmpId=" + Empid;
+            }
+            else
+            {
+                alert('Resume is not avilable');
+            }
+           });
+
+         $('#btnsendmail').on('click', function () {
+
+             var emailid = $('#txtEmail').val();
+
+
+            //var replacedemp = replacedid.split("-");
+            //var emailid = replacedemp[1];
+
+             var subject = $('#txtsubject').val();
+             var message = $('#txtmessage').val();
+
+
+            //if (EmpId == 0) {
+            //    alert("Please  select Employee Id ");
+            //}
+           //else {
+                $.ajax({
+                    url: '@Url.Action("EmailSend", "EmployeeSearch")',
+                    data: JSON.stringify({ EmpId: Empid, subject: subject, message: message, emailid: emailid }),
+                    type: 'Post',
+                    datatype: "JSON",
+                    contentType: 'application/json; charset=utf-8',
+                    cache: false,
+                    success: function (data) {
+                        if (data.success) {
+                            alert('Email sent  successfully.');
+                            window.location.href = "@Url.Action("Index", "EmployeeSearch")";
+                        } else {
+                            alert('Email sent failed.');
+                        }
+
+                    },
+                    error: function (result) {
+
+                        alert(JSON.stringify(error));
+                    }
+                });
+                //  });
+           // }
+            $('#tableemployee').DataTable({
+                "columnDefs": [
+                    { "width": "10%", "targets": 6 },
+
+                ],
+
+
+
+                //"order": [
+                //    [10, ' ']
+                // ],
+                 ordering: false,
+                 order: [[4, 'asc'], [5, 'asc']],
+            });
+
+            $('#btnExportToExcel').click(function () {
+                //$(this).hide();
+                $("#btnProcessing").show();
+
+                $.ajax({
+                    url: "@Url.Action("ExportReport", "EmployeeSearch")",
+                    data: "",
+                    type: "POST",
+                    datatype: "JSON",
+                    cache: false,
+                    success: function (response) {
+                        if (response == "success") {
+                            window.location = "@Url.Action("ExportEmployeeDetails", "EmployeeSearch")";
+
+                            setTimeout(function () {
+                                $("#btnExportToExcel").show();
+                                $("#btnProcessing").hide();
+                            }, 10000);
+                        }
+                        else if (reresponsesult == "Error") {
+                            window.location.href = '@Url.Action("Error", "Error")';
+                        }
+                        else if (response == "Sessionexpired") {
+                            window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                        }
+                    },
+                    error: function (error) {
+                        alert(error.statusText);
+                    }
+                });
+            });
+        });
+    });
+
+
+$(document).ready(function () {
+        $('#tableemployee').DataTable({
+            "columnDefs": [
+                { "width": "10%", "targets": 4 }
+            ],
+            ordering: false,
+            order: [[4, 'asc'], [5, 'asc']],
+        });
+
+    });
+
+     function EmployeeSubmit(EmployeeId) {
+
+         window.location.href = '@Url.Action("ProposeAssociate", "ProposeAssociate")' + "?&hrrfno=" + '@ViewBag.HrrfNumberCount' + '&EmpId=' + EmployeeId;
+     }
+
+        $('#MenuReport').addClass('active');
+        $('#Employees').addClass('active');
+
+
+</script>
+
+

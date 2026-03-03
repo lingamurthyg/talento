@@ -1,0 +1,807 @@
+﻿@*@model List<Trianz.Enterprise.Operations.Models.BenchResourceStatusReport>*@
+
+@{
+    ViewBag.Title = "BenchResourceStatusReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<link href="~/Content/Talento2.css" rel="stylesheet" />*@
+
+
+<style>
+    .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+        border: 1px solid #ddd;
+        width: 22%;
+    }
+
+    .image-upload > input {
+        display: none;
+    }
+
+    #searchbtn {
+        background-color: #004BBB;
+        height: 33px;
+        margin-left: 44px;
+        margin-top: -7px;
+        width: 38px;
+    }
+
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .questionlogo1 {
+        margin-left: 476px;
+        margin-top: -9px;
+    }
+
+    .onlinebtn {
+        margin-left: 434px;
+        position: relative;
+        top: 26px;
+    }
+
+    #txtStartdate {
+        height: 30px;
+        width: 130px;
+        margin-top: -31px;
+        margin-left: 83px;
+    }
+
+    #txtEnddate {
+        height: 30px;
+        width: 130px;
+        margin-top: -31px;
+        margin-left: 82px;
+    }
+
+    .fa-calendar {
+        position: absolute;
+        top: 7px;
+        margin-left: 197px;
+    }
+
+    #txt {
+        color: #2C2E31;
+        font-size: 16px;
+        top: -14px;
+        left: 32px;
+        position: relative;
+    }
+
+
+    .HRRF_custom .subpage_header {
+        border-bottom: 1px #8C8989;
+        margin-left: 2px;
+        width: 1205px;
+        /*margin-top: 12px;*/
+        position: relative;
+        top: 39px;
+    }
+    hr {
+        margin-bottom: 10px !important;
+        /* border: 0; */
+        border-top: 1px solid #004BBB !important;
+        top: 45px;
+        position: relative;
+        right: -5px;
+        width: 98%;
+    }
+    table {
+        table-layout:fixed;       
+    }
+    /*#txt {
+        color: #2C2E31;
+        font-size: 16px;
+        margin-left: 21px;
+        margin-top: 56px;
+    }*/
+</style>
+<div class="HRRF_custom">
+
+    <div class="subpage_header page-header nomargin-top">
+        <div class="row">
+            <div class="col-sm-6 nopadding pull-left ">
+
+                <p id="txt">BENCH RESOURCE STATUS REPORT</p>
+
+            </div>
+            <hr />
+            <div class="row" style="margin-top: 32px;">
+                <div class="col-sm-5" id="getExcelbtn">
+
+                    <button id="btnExportToExcel" type="button" href="#" onclick="GetEXCEL()" style="    position: relative;
+    background-color: white;
+    /*border: white;*/
+    color: #004BBB;
+      
+    border: 1px solid #004BBB;
+    border-radius: 6px;
+    padding: 6px 25px;
+    left: 688px;
+    float: right;
+    top: -30px;">
+                        <img src="~/Content/images/Report_icon.svg" /> Export <span class="caret"></span>
+                        @*<img src="~/Content/images/xlsimg.png" data-toggle="tooltip" data-placement="left" title="Export to Excel" class="xlms" style="width: 43px;height: 44px;display:inline-block;margin-top: 11px;left: 17px;position:relative;" alt="xlmsimg">*@
+                    </button>
+
+                </div>
+                <input type="hidden" id="hdnMessage" value="@ViewBag.Message" />
+                @using (Html.BeginForm("InsertCostPerHourData", "Employees", null, FormMethod.Post, new { id = "uploadform", enctype = "multipart/form-data" }))
+
+                {
+                        <div class="info2">
+
+                            @Html.AntiForgeryToken()
+                            <div class="col-sm-5" style="    margin-left: 61px;
+    float: initial;
+    /* margin-bottom: 9px; */
+    position: relative;
+    top: -63px;">
+                                <div class="form-group">
+                                    <div class="image-upload">
+
+                                        <div class="row" style="margin-left: -47px;">
+                                            <label for="upload">
+                                                <img src="~/Content/images/downloadforupload.png" style=" width: 14px;position: relative;left: 29px;" placeholder='Choose a file...' />
+                                                <img src="~/Content/images/Rectforbench.jpg" style=" width: 157px;" placeholder='Choose a file...' />
+                                                <b style="color:#004BBB;position: relative;right: 124px;font-size: 13px;">Choose a file...</b>
+
+
+
+                                            </label>
+                                            <div class="form-group col-md-6 pull-right" style="position: relative;left: -95px;">
+                                                <input type="button" value="Upload" class="btn btn-default" style="background-color: #004BBB;color: white;" id="uploadfilealert"/>
+                                            </div>
+                                        </div>
+
+                                        <input id="upload" name="upload" type="file" />
+                                        <label class="custom-file-label" for="inputGroupFile02" style="position: relative;top: -42px;left: 245px;"></label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+            </div>
+            </div>
+</div>
+    </div>
+<br />
+<link href="~/Content/dataTables.bootstrap.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/responsive.bootstrap.min.js"></script>
+@*<div id="FormContent">
+        <form id="FormUpload" enctype="multipart/form-data" method="post">
+            <span class="btn btn-success fileinput-button">
+                <input type="file" name="file" id="btnUploadTrainingDoc" />
+            </span>
+            <button class="btn btn-primary start"
+                    type="button" id="Submit_btn">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>Start upload</span>
+            </button>
+        </form>
+    </div>*@
+@*@using (Html.BeginForm("InsertCostPerHourData", "Employees", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {
+<div class="info2">*@
+
+    @Html.AntiForgeryToken()
+
+    @*<div class="form-group" name="Fichier1">
+
+            <div class="form-group">
+                <div class="input-group input-file">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-choose" type="button">Choose</button>
+                    </span>
+                    <input type="text" class="form-control" style="width:26%;" placeholder='Choose a file...' />
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="form-group">
+            <input type="submit" value="Upload" class="btn btn-default" />
+        </div>
+
+    @*new*@
+    @*<div class="form-group">
+            <div class="image-upload">
+
+
+
+                <label for="upload">
+                    <img src="~/Content/images/downloadforupload.png" style=" width: 14px;position: relative;left: 25px;" placeholder='Choose a file...' />
+                    <img src="~/Content/images/Rectforbench.jpg" style=" width: 157px;" placeholder='Choose a file...' />
+                    <b style="color:#004BBB;position: relative;right: 124px;font-size: 13px;">Choose a file...</b>
+
+                </label>
+
+                <input id="upload" name="upload" type="file" />
+                <label class="custom-file-label" for="inputGroupFile02" style="margin-left: -69px;"></label>
+            </div>
+        </div>*@
+    @*<div class="form-group" style="position: relative;left: 17px;top: -14px;">
+            <input type="submit" value="Upload" class="btn btn-default" />
+        </div>*@
+
+
+
+    @*<div class="form-group" style="margin-top: -35px;">
+        <div class="image-upload">
+
+
+
+            <label for="upload">
+                <img src="~/Content/images/downloadforupload.png" style=" width: 14px;position: relative;left: 25px;" placeholder='Choose a file...' />
+                <img src="~/Content/images/Rectforbench.jpg" style=" width: 157px;" placeholder='Choose a file...' />
+                <b style="color:#004BBB;position: relative;right: 124px;font-size: 13px;">Choose a file...</b>
+
+
+
+            </label>
+            <div class="form-group" style="position: relative;left: 182px;top: -38px;">
+                <input type="submit" value="Upload" class="btn btn-default" style="background-color: #004BBB;color: white;"/>
+            </div>
+
+            <input id="upload" name="upload" type="file" />
+            <label class="custom-file-label" for="inputGroupFile02" style="    margin-left: 271px;
+    margin-top: -47px;
+    position: relative;
+    top: -79px;"></label>
+        </div>
+
+    </div>*@
+   
+
+@*</div>*@
+
+            @*<div class="alert alert-danger">
+                            @Html.ValidationSummary()
+
+                </div>*@
+
+
+      
+
+
+
+
+
+
+@*}*@
+
+<div class="request_header">
+
+    <div class="row" style="padding:15px">
+
+        <div class="col-sm-3">
+            <label for="test">Practice</label>
+            @*<span style="color:red">*</span>*@
+            <span>
+                @Html.DropDownList("txtProjectcode", ViewBag.ProjectCodes as List<SelectListItem>, " Select Practice",
+               new { @class = "form-control", @style = "width: 170px;position: relative;bottom: 28px;left: 78px;height: 33px;" })
+
+                @*@Html.DropDownList("ddlProjects", ViewBag.ProjectCodes as List<SelectListItem>, " Select Project ", new { @class = "form-control", @required = "required", data_error = "Please select Practice name" })*@
+                @*<input type="text" id="txtProjectcode" name="txtProjectcode" class="form-control" placeholder="Enter Project Code" />*@
+            </span>
+        </div>
+        <div class="col-sm-3">
+            <label for="test">Quarters </label>
+
+            <span>
+                @Html.DropDownList("ddlQuaters", ViewBag.QuatersType as List<SelectListItem>,
+               "Select option", new { @class = "form-control", @style = "width: 133px;position: relative;bottom: 29px;left: 70px;height: 33px;"})
+            </span>
+
+        </div>
+
+        @*<div class="col-sm-4" id="QuatersCode">
+                <label for="test" id="Code1">Quaters</label>
+                @Html.DropDownList("Quaters", new SelectList(quaterType, "Value", "Text"),
+                  "Select option", new { @class = "form-control", @style = "width: 90px;" })
+            </div>*@
+        <div class="col-sm-2" style="margin-left: -52px;">
+            @*<div class='input-group input-append date' id='txtStartdate' style="position:relative; left:425px;">*@
+            <label for="test">Start Date</label>
+            <span style="color:red">*</span>
+            <input type="text" id="txtStartdate" name="txtStartdate" class="form-control" placeholder="Start Date" readonly="true" />
+
+            <span class="fa fa-calendar">
+            </span>
+
+        </div>
+
+        <div class="col-sm-2" style="margin-left:42px">
+            @*<div class='input-group input-append date' id='txtStartdate' style="position:relative; left:425px;">*@
+            <label for="test">End Date</label>
+            <span style="color:red">*</span>
+            <input type="text" id="txtEnddate" name="txtEnddate" class="form-control" placeholder="End Date" readonly="true" />
+
+            <span class="fa fa-calendar">
+            </span>
+
+        </div>
+
+        @*<div class="col-md-2 col-sm-12 nopadding-right pull-right" id="searchbtn" value="Search">*@
+        <div class="col-sm-2">
+            <button class="btn btn-primary" id="searchbtn" onclick="searchval()">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+            @*<input type="button" class="btn btn-primary" id="searchbtn" onclick="searchval()" value="Search">*@
+
+        </div>
+        @*</div>*@
+
+    </div>
+    @*<br />*@
+    @*<br />
+        &nbsp;*@
+
+    <div id="ProjectResourceSum">
+
+    </div>
+    <div id="ProjectResource">
+        @Html.Partial("_BenchResourceCostReport")
+
+    </div>
+
+
+
+</div>
+<script>
+    $(document).ready(function () {
+        //$("#button1").click(function () {
+        $("#tableEmpSkillsReport").hide();
+
+        var message = $("#hdnMessage").val();
+        //alert(message);
+        if (message != "No") {
+            alert("File Data Uploaded Successfully");
+             window.location.href = '@Url.Action("BenchStatusReport", "Employees")';
+        }
+
+        //else
+        //{
+        //    //alert("HI");
+        //}
+        
+    });
+
+    $('#upload').on('change', function () {
+        debugger
+        //get the file name
+        var fileName = $(this).val();
+        var filename = fileName.replace(/^.*[\\\/]/, '');
+        $(this).next('.custom-file-label').html(filename);
+    })
+    $('#uploadfilealert').on('click', function () {
+
+        var file = $('#upload').val();
+        if (file == '') {
+            alert("Please Upload a File");
+        }
+        else {
+            $("#uploadform").submit();
+        }
+    });
+    
+    Date.prototype.toShortFormat = function () {
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr",
+            "May", "Jun", "Jul", "Aug",
+            "Sep", "Oct", "Nov", "Dec"];
+
+        const day = this.getDate();
+
+        const monthIndex = this.getMonth();
+        const monthName = monthNames[monthIndex];
+
+        const year = this.getFullYear();
+
+        return `${day}-${monthName}-${year}`;
+    }
+
+    $("#ddlQuaters").change(function () {
+            //     debugger;
+           // $("#GoalSettingLoadingIcon").show();
+          //  var url = '@Url.Content("~/BulkAssignment/GetEmployeeInfobyPractice")';
+        var ddlquater = $("#ddlQuaters").val();
+
+
+        if (ddlquater == "Q1") {
+            var startdate = '01-Jan-2023';
+            var enddate = '31-Mar-2023';
+            $('#txtStartdate').val(startdate);
+            $('#txtEnddate').val(enddate);
+
+        }
+        else if (ddlquater == "Q2")
+        {
+            var startdate = '01-Apr-2023';
+            var enddate = '30-Jun-2023';
+
+            let today = new Date();
+          //  alert(today.toShortFormat());
+
+
+            $('#txtStartdate').val(startdate);
+            $('#txtEnddate').val(today.toShortFormat());
+
+        }
+        else if (ddlquater == "Q3")
+        {
+            var startdate = '01-Jul-2022';
+            var enddate = '30-Sep-2022';
+
+            //let today = new Date();
+            //var sysdate = today.toShortFormat();
+            //if (sysdate > startdate && sysdate < enddate)
+            //{
+
+
+            //}
+
+            $('#txtStartdate').val(startdate);
+            $('#txtEnddate').val(enddate);
+        }
+        else if (ddlquater == "Q4")
+        {
+            var startdate = '01-Oct-2022';
+            var enddate = '31-Dec-2022';
+            $('#txtStartdate').val(startdate);
+            $('#txtEnddate').val(enddate);
+        }
+    });
+
+    var nowDate = new Date();
+    var today = new Date(nowDate.getFullYear(), nowDate.getMonth() - 12, nowDate.getDate(), 0, 0, 0, 0);
+    $('#txtStartdate').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        todayHighlight: true,
+        orientation: "top",
+        // startDate: today,
+        endDate: "today",
+        format: 'dd-M-yyyy'
+    }).on('changeDate', function (e) {
+        $(this).datepicker('hide');
+        if ($("#txtEnddate").val().length > 0 & $("#txtStartdate").val().length > 0) {
+
+            FunValidateStartAndEndDate($("#txtStartdate").val(), $("#txtEnddate").val());
+        }
+    });
+
+    var nowDate = new Date();
+    var today = new Date(nowDate.getFullYear(), nowDate.getMonth() - 12, nowDate.getDate(), 0, 0, 0, 0);
+    $('#txtEnddate').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        todayHighlight: true,
+        orientation: "top",
+        // startDate: today,
+        endDate: "today",
+        format: 'dd-M-yyyy'
+    }).on('changeDate', function (e) {
+        $(this).datepicker('hide');
+        if ($("#txtEnddate").val().length > 0 & $("#txtStartdate").val().length > 0) {
+            FunValidateStartAndEndDate($("#txtStartdate").val(), $("#txtEnddate").val());
+        }
+    });
+
+    //var nowDate = new Date();
+    //var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+    //$('#datetimepicker1').datepicker({
+    //    keyboardNavigation: false,
+    //    forceParse: false,
+    //    autoclose: true,
+    //    todayHighlight: true,
+    //    startDate: today,
+    //    format: 'dd-M-yyyy'
+    //}).on('changeDate', function (e) {
+    //    $(this).datepicker('hide');
+    //});
+
+
+    function searchval() {
+        //debugger;
+        var projectcode = $("#txtProjectcode").val();
+        var startDate = $("#txtStartdate").val();
+        var endDate = $("#txtEnddate").val();
+
+        if (projectcode.length > 0) {
+            FunGetProjectDetails(projectcode);
+        }
+        if (startDate == null || startDate == "" || startDate == undefined) {
+            alert("Please enter the Start Date");
+            //return false;
+        }
+        if (endDate == null || endDate == "" || endDate == undefined) {
+            alert("Please enter the End Date");
+            //return false;
+        }
+         //if (startDate.length > 0 && endDate.length > 0) {
+        //    FunValidateStartAndEndDate(startDate, endDate);
+        //}
+        else {
+
+            $.ajax({
+                url: "@Url.Action("BenchTotalCostReport", "Employees")",
+                data: { "projectcode": projectcode, "startdate": startDate ,"enddate":endDate},
+                type: "GET",
+                datatype: "JSON",
+                success: function (response) {
+                      if (response != null) {
+                        $("#tableEmpSkillsReport").show();
+                        //  $("#ProjectResource").hide();
+                        $("#ProjectResourceSum").html(response);
+                        searchval1();  //inside of this method only we taking na so we taking here.
+                      }
+                      else if (response == "Sessionexpired") {
+                          window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                    }
+                },
+                error: function (error) {
+                    alert(error.statusText);
+                }
+            });
+        }
+    }
+
+    function GetEXCEL() {
+        debugger;
+        var projectcode = $("#txtProjectcode").val();
+        var startDate = $("#txtStartdate").val();
+        var endDate = $("#txtEnddate").val();
+        if (projectcode.length > 0) {
+            FunGetProjectDetails(projectcode);
+        }
+        if (startDate == null || startDate == "" || startDate == undefined) {
+            alert("Please enter the Start Date");
+            //return false;
+        }
+        if (endDate == null || endDate == "" || endDate == undefined) {
+            alert("Please enter the End Date");
+            //return false;
+        }
+        //if (startDate.length > 0 && endDate.length > 0) {
+        //    FunValidateStartAndEndDate(startDate, endDate);
+        //}
+        else {
+
+            $.ajax({
+            url: "@Url.Action("ExportReport", "Employees")",
+            data: "",
+            type: "POST",
+            datatype: "JSON",
+            cache: false,
+            success: function (response) {
+                if (response == "success") {
+                    //window.location = "@Url.Action("GenerateBenchEmployeeCostReport", "Employees")" + '?projectcode' + projectcode + '&startdate' + startDate + '&enddate' + endDate;
+                    var url = '@Url.Action("GenerateBenchEmployeeCostReport", "Employees")' + '?projectcode=' + projectcode + '&startDate=' + startDate + '&endDate=' + endDate;
+
+                    window.location = url;
+                    //window.location = "@Url.Action("GetEmployeeInfobyPractice", "EmployeeAssignment")" + "?EmpCode=" + EmpCode + '&InActive=' + Inactive;
+
+                    setTimeout(function () {
+                        $("#btnExportToExcel").show();
+                    }, 10000);
+                }
+                else if (reresponsesult == "Error")
+                       {
+                        window.location.href = '@Url.Action("Error", "Error")';
+                        }
+                else if (response== "Sessionexpired") {
+                window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                    }
+            },
+            error: function (error) {
+                alert(error.statusText);
+            }
+            });
+        }
+    }
+
+    //$("#txtProjectcode").blur(function () {
+    //    if ($(this).val().length > 0) {
+    //        FunGetProjectDetails($(this).val());
+    //    }
+    //});
+
+    function FunGetProjectDetails(projectcode) {
+        debugger;
+        $.ajax({
+            async: false,
+            cache: false,
+            type: "POST",
+            url: "@(Url.Action("BenchProjectInfo", "Employees"))",
+            data: { ProjectCode: projectcode },
+            success: function (data) {
+                if (data == "false") {
+                    alert("Please enter valid Bench Project Code.");
+                }
+            }
+        });
+    }
+
+    function searchval1() {
+        var projectcode = $("#txtProjectcode").val();
+        var startDate = $("#txtStartdate").val();
+        var endDate = $("#txtEnddate").val();
+        $.ajax({
+            url: "@Url.Action("_BenchResourceCostReport", "Employees")",
+            data: { "projectcode": projectcode, "startdate": startDate, "enddate": endDate },
+            type: "GET",
+            datatype: "JSON",
+            success: function (response) {
+                if (response != null) {
+                    $("#ProjectResource").html(response);
+                }
+                else if (response == "Sessionexpired") {
+                    window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                }
+            },
+            error: function (error) {
+                alert(error.statusText);
+            }
+        });
+        //}
+    }
+
+
+
+    function FunValidateStartAndEndDate(startDate, endDate) {
+        debugger;
+        $.ajax({
+            async: false,
+            cache: false,
+            type: "POST",
+            url: "@(Url.Action("ValidateStartAndEndDate", "Employees"))",
+            data: { StartDate: startDate, EndDate: endDate },
+            success: function (data) {
+                if (data == "false") {
+                    alert("Please enter the End Date greater than or equal to Start Date");
+                    $('#searchbtn').hide();
+                    $("#btnExportToExcel").hide();
+                }
+                else {
+                    $('#searchbtn').show();
+                    $("#btnExportToExcel").show();
+                    return true;
+                }
+            }
+        });
+    }
+    $("#Submit_btn").on("click", function () {
+        debugger
+        $("#diverrrGrid").hide();
+        $("#divLoader").show();
+        UploadReportFile();
+    });
+
+
+        function UploadReportFile() {
+            debugger;
+            var selectedfile = $('#btnUploadTrainingDoc').val();
+            alert(selectedfile);
+            if (selectedfile != "") {
+                var form = $('#FormUpload')[0];
+                var dataString = new FormData(form);
+                $.ajax({
+                    url: '@Url.Action("InsertTrainingData", "Employees")',
+                    type: 'POST',
+                    cache: false,
+                    beforeSend: function () {
+                    },
+                    success: function (dataResult) {
+                        debugger;
+                        $('#btnUploadTrainingDoc').val('');
+                        $("#diverrrGrid").show();
+                        $("#lblcrtcunt").text(dataResult.Crrtcount);
+                        $("#lblincrtcunt").text(dataResult.InCrrtcount);
+                        $("#lblduplicrt").text(dataResult.DuplicateCount);
+                        $("#diverrorec").empty();
+                        //$("#btnexport").hide();
+                        if (dataResult.datalist != null) {
+                            debugger;
+                            $.ajax({
+                                url: '@Url.Action("GetErrorRecordsParitalView", "Employees")',
+                                // data: JSON.stringify({ lstit: dataResult.datalist }),
+                                type: 'GET',
+                                datatype: "html",
+                                contentType: 'application/json; charset=utf-8',
+                                cache: false,
+                                success: function (result) {
+                                    debugger;
+                                    if (result != null) {
+                                        if ($("#diverrorec").length > 0) {
+                                            $("#diverrorec").empty();
+                                        }
+                                        $("#diverrorec").html(result);
+                                        //if (dataResult.datalist.length > 0)
+                                        //    $("#btnexport").show();
+
+                                    }
+                                },
+                                error: function (result) {
+                                }
+                            });
+
+                        }
+                        $("#divLoader").hide();
+                        alert(dataResult.message);
+
+                    },
+                    error: function (error) {
+                        $('#btnUploadTrainingDoc').val('');
+                        $("#divLoader").hide();
+                        alert("Please select a proper file");
+
+
+                    },
+                    complete: function (done) {
+                        $('#btnUploadTrainingDoc').val('');
+                        $("#divLoader").hide();
+
+                    },
+                    data: dataString,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            } else {
+                $("#divLoader").hide();
+                alert("select a file to upload");
+            }
+
+        }
+</script>
+
+<script>
+    function bs_input_file() {
+        $(".input-file").before(
+            function () {
+                if (!$(this).prev().hasClass('input-ghost')) {
+                    var element = $("<input type='file' id='dataFile' name='upload' class='input-ghost' style='visibility:hidden; height:0'>");
+                    element.attr("name", $(this).attr("name"));
+                    element.change(function () {
+                        element.next(element).find('input').val((element.val()).split('\\').pop());
+                    });
+                    $(this).find("button.btn-choose").click(function () {
+                        element.click();
+                    });
+                    $(this).find("button.btn-reset").click(function () {
+                        element.val(null);
+                        $(this).parents(".input-file").find('input').val('');
+                    });
+                    $(this).find('input').css("cursor", "pointer");
+                    $(this).find('input').mousedown(function () {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+
+    function clear() {
+        var input = $("#dataFile").val('');
+    };
+    $(function () {
+        clear();
+        bs_input_file();
+    });
+</script>
+

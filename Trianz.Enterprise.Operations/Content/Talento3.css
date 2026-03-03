@@ -1,0 +1,116 @@
+﻿/*trhome index*/
+
+/*#textbx {
+    width: 18px;
+    margin-left: 1037px;
+    margin-top: -132px;
+}*/
+
+input[type="text"]::placeholder {
+    text-align: center;
+}
+
+#p2 {
+    margin-left: 19px;
+}
+
+#p3 {
+    margin-left: 19px;
+}
+
+#p4 {
+    margin-left: 19px;
+}
+
+#p5 {
+    margin-left: 19px;
+}
+
+
+
+.h3, h3 {
+    font-size: 32px;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 61px;
+    margin-bottom: 10px;
+    margin-left: 25px;
+}
+
+a:hover {
+    color: #0070C1;
+}
+
+
+#theadcolour {
+    background-color: #E1F3FF !important;
+    color: #000000;
+    font-size: 12px;
+}
+
+.ddlRequestType {
+    text-decoration: underline;
+}
+
+
+a.active {
+    color: blue;
+    text-decoration: underline;
+}
+
+
+.createtr {
+    background-color: #FF771A;
+}
+
+.parg {
+   
+    left: 39px;
+    width: 1000px;
+    height: 56px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    position: absolute;
+}
+
+.parg2 {
+   
+    left: 69px;
+    width: 578px;
+    height: 56px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    position: absolute;
+    font-size: 15px;
+}
+.banner {
+    width: 117px;
+    height: 289px;
+    margin-left: -31px;
+    margin-top: -15px;
+}
+
+.container {
+    position: relative;
+    font-family: Arial;
+}
+
+.nav navbar-nav left-nav {
+    margin-top: -12px;
+}
+
+.table > tbody > tr > td {
+    padding: 3px;
+}
+
+
+
+
+
+
+

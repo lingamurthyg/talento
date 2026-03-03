@@ -1,0 +1,144 @@
+﻿/*designation master_prosectassignment*/
+
+.HRRF_custom .control-label {
+    text-align: right;
+}
+
+#txt {
+    color: #133B93;
+    font-size: 20px;
+    margin-top: 27px;
+}
+
+#grade {
+    margin-left: -22px
+}
+
+#DesignationCode {
+    margin-left: 10px;
+}
+
+#DesignationName {
+    margin-left: 160px;
+}
+
+#txt {
+    color: #133B93;
+    font-size: 20px;
+    /*font: normal normal medium 20px/45px Poppins;*/
+}
+
+
+/*employee assignment index*/
+.HRRF_custom table tr th {
+    color: black;
+}
+
+.HRRF_custom .control-label {
+    text-align: right;
+}
+
+.HRRF_custom table td input[type='checkbox'] {
+    margin-left: 0px;
+}
+
+.HRRF_custom div.date {
+    width: 100%;
+}
+
+.error-msg-font-size {
+    font-size: 12px;
+}
+
+.search {
+    margin-right: 357px;
+    margin-top: -36px;
+}
+
+.table-responsive {
+    min-height: .01%;
+    overflow-x: hidden;
+}
+
+#GoalSettingLoadingIcon {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: url("../Images/ajax-loader.gif") no-repeat center center;
+}
+
+.forscroll {
+    width: auto !important;
+    min-height: 0px !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    height: 330px !important;
+}
+
+.prosubmit {
+    margin-left: 500px;
+    margin-top: 8px;
+}
+
+.assignbutton {
+    display: none !important;
+}
+
+
+#a {
+    color: black;
+}
+
+
+.HRRF_custom .control-label {
+    text-align: right;
+}
+
+.HRRF_custom table td input[type='checkbox'] {
+    margin-left: 0px;
+}
+
+.HRRF_custom div.date {
+    width: 100%;
+}
+
+.error-msg-font-size {
+    font-size: 12px;
+}
+
+.search {
+    margin-top: -33px;
+    margin-right: 350px;
+}
+
+#GoalSettingLoadingIcon {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: url("../Images/ajax-loader.gif") no-repeat center center;
+}
+
+.forscroll {
+    width: auto !important;
+    min-height: 0px !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    height: 330px !important;
+}
+
+.prosubmit {
+    margin-left: 500px;
+    margin-top: 8px;
+}
+
+.assignbutton {
+    display: none !important;
+}
+
+

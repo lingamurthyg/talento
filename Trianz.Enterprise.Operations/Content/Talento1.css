@@ -1,0 +1,318 @@
+﻿/*clustermaster*/
+
+
+
+#CLSTRJD {
+    width: 691px;
+}
+
+#txt {
+    color: #133B93;
+    font-size: 20px;
+    /*font: normal normal medium 20px/45px Poppins;*/
+}
+
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #337ab7;
+    margin: 1em 0;
+    padding: 0;
+}
+
+
+.table > tbody > tr > td {
+    padding: 3px;
+}
+
+#tablePractice_length {
+    margin-left: -134px;
+    margin-top: 40px;
+}
+
+.HRRF_custom table tr th {
+    color: black;
+    font-size: 12px;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    margin-right: -580px;
+    margin-top: -43px;
+}
+
+    div.dataTables_wrapper div.dataTables_filter label {
+        font-weight: normal;
+        white-space: nowrap;
+        text-align: left;
+    }
+
+#btnCreate {
+    margin-top: 1px;
+    margin-left: 0px;
+    background-color: #0070C1;
+}
+
+#tablePractice_paginate {
+    /*margin: 0;*/
+    white-space: nowrap;
+    text-align: right;
+    /* margin-top: 10px; */
+    margin-bottom: 7px;
+}
+
+#txt {
+    color: #133B93;
+    font-size: 20px;
+    margin-left: 1px;
+    font: normal normal medium 20px/45px Poppins;
+}
+
+
+
+button, html input[type=button], input[type=reset], input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    background-color: #0070C1;
+}
+
+
+
+
+/* view hrrf*/
+.navbar-nav > li > .dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    z-index: 12000;
+}
+
+#txt {
+    color: #133B93;
+    font-size: 20px;
+   
+    /*font: normal normal medium 20px/45px Poppins;*/
+}
+
+#LocationType {
+    width: 342px;
+}
+
+.nav-item.active > a > p > .iconify {
+    top: 0px;
+    left: -27px;
+    margin-top: -34px;
+    width: 54px;
+    height: 23px;
+    opacity: 1;
+    background: url('https://api.iconify.design/bi/check2-circle.svg?color=white') no-repeat center center / contain !important;
+    content: url('https://api.iconify.design/bi/check2-circle.svg?color=white') !important;
+    /* background-color: white; */
+}
+
+.nav-item:not([class^="active"]) > a > p > .iconify {
+    top: 0px;
+    left: -27px;
+    margin-top: -34px;
+    width: 54px;
+    height: 23px;
+    opacity: 1;
+    background: url('https://api.iconify.design/bi/check2-circle.svg?color=black') no-repeat center center / contain;
+    content: url('https://api.iconify.design/bi/check2-circle.svg?color=black');
+    /* background-color: white; */
+}
+
+.nav-item {
+    background-color: #F3F4F6;
+    color: white;
+}
+
+#AssignmentStartDate {
+    width: 308px;
+}
+
+#AssignmentEndDate {
+    width: 305px;
+}
+
+#divOpportunityName {
+    width: 264px;
+}
+
+#BillingDate {
+    width: 307px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: white;
+    cursor: default;
+    background-color: #133B93;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs > li {
+    float: left;
+    margin-bottom: 0px;
+    /*margin-left: 7px;*/
+    color: white;
+    background-color: #E4DEDE;
+    border: 1px solid #c9c8c8;
+}
+
+    .nav-tabs > li > a {
+        margin-right: 0px !important;
+    }
+
+.nav-item.active > .box.arrow-right:after {
+    content: " ";
+    position: absolute;
+    right: -15px;
+    top: 20px;
+    border-top: 10px solid transparent;
+    border-right: none;
+    border-left: 15px solid #133B93;
+    border-bottom: 10px solid transparent;
+    color: white;
+}
+
+.nav-item.active {
+    z-index: 9999;
+}
+
+.title-heading {
+    vertical-align: super;
+}
+
+.nav {
+    padding-left: 9px;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+p {
+    margin: 5px 18px 10px;
+}
+
+#salest {
+    margin-top: 20px;
+}
+
+.form-control {
+    display: block;
+    width: 125%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #F3F4F6;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    width: 245px;
+    height: 34px;
+    background-color: #F3F4F6;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+
+
+
+
+
+
+
+
+
+.HRRF_custom .panel-body {
+    padding-top: 25px;
+}
+
+.error-msg-font-size {
+    font-size: 12px;
+}
+
+.HRRF_custom table tr th {
+    background-color: #E1F3FF !important;
+    color: black;
+}
+
+.HRRF_custom table td input[type='checkbox'] {
+    margin-left: 0px;
+}
+
+/*external fulfillment*/
+
+.HRRF_custom table.p-resources thead th, .HRRF_custom table.p-resources tbody th, table.dataTable.nowrap th {
+    background-color: #E1F3FF !important;
+}
+
+    .HRRF_custom table.p-resources thead tr a, table.dataTable.nowrap th, table.dataTable.nowrap th a {
+        color: black;
+        font-size: 12px;
+    }
+
+#ddlPractise {
+    margin-left: -48px;
+    width: 167px;
+}
+
+#ddlHRRFRequestStatus {
+    margin-left: -17px;
+    width: 178px;
+}
+
+
+
+#ddlExternalRequestStatus {
+    margin-left: -17px;
+    width: 178px;
+}
+
+#ddlExternalPractise {
+    margin-left: -48px;
+    width: 167px;
+}
+
+
+/*project master */
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin: 45px;
+}
+
+
+.DName {
+    width: 15%;
+}
+
+.DCode {
+    width: 13%;
+}
+
+.Remarks {
+    width: 20%;
+}
+
+.Grade {
+    width: 5%;
+}
+
+.HRRF_custom #gridcontent {
+    height: 100%;
+}
+
+#btnExportToExcel {
+    background-color: white;
+}
+
+

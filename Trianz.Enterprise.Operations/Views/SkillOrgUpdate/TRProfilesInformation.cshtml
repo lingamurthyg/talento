@@ -1,0 +1,363 @@
+﻿@model Trianz.Enterprise.Operations.Models.BenchAssignment
+
+
+@{
+    ViewBag.Title = "SkillOrgUpdate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Footer2.css" rel="stylesheet" />
+<link href="~/Content/Talento5.css" rel="stylesheet" />
+<link href="~/Content/LayoutHeader.css" rel="stylesheet" />
+<style>
+    label{
+       margin:4px;
+    }
+    .display {
+        display: flex;
+    }
+    .form-control {
+        width: 60%;
+        margin-left: 2px;
+    }
+
+    .ui-dialog .ui-dialog-content {
+        position: relative;
+        border: 0;
+        padding: .5em 1em;
+        background: none;
+        overflow: auto;
+        background-color: #FFFFFF;
+    }
+
+    .ui-widget-content {
+        margin-left: 20px;
+        background: #FFFFFF;
+        border: 1px solid #FFF;
+    }
+    /*.ui-button-text-only .ui-button-text {
+        padding: 0.6em 1em;
+        background-color: #004BBB;
+        color: #FFFFFF;
+    }*/
+    .ui-dialog .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix .ui-dialog-title {
+        color: #2C2E31;
+        font-size: 15px;
+    }
+
+    .ui-dialog .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
+        background-color: #FFFFFF;
+        border-color: #FFFFFF;
+        background-image: none;
+        border-radius: 0px !important;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    #txt {
+        color: #2C2E31;
+        font-size: 15px;
+        margin-left: 18px;
+    }
+
+    td, th {
+        color: black;
+        color: rgb(0, 0, 0);
+    }
+
+    #btnSearch {
+        margin: -33px -48px 27px 34px;
+        background-color: #004BBB;
+        border: none !important;
+        outline: none;
+        outline-offset: 0px;
+    }
+
+    .request_header {
+        background: #fff;
+        border-bottom: 1px solid #EAECF2;
+        position: relative;
+        top: 60px;
+        margin-bottom: 60px;
+    }
+</style>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+    @*<div class="subpage_header page-header nomargin-top" style="position: relative;top: 20px;">
+            <p id="txt"><b>Skill Code and Organization SubGroup Update </b>
+            </p>
+        </div>*@
+    <link href="~/Content/dataTables.bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+   
+
+    <div class="container" style="background: white;margin: 20px 0px;">
+        <div class="row" style="display: flex; align-items: center;margin: 14px 0;">
+            <div class="col-sm-4" style="display: inline-block;">
+        <div class="form-group" style="margin-bottom: 0;">
+            <label style="margin-right: 5px;">Enter TR Number</label>          
+            @Html.TextBox("SearchTRNumber", ViewBag.HRRFNUMBER as string, new { @class = "form-control", @placeholder = "Enter TR Number", style = "width: 180px; display: inline-block; margin-bottom: 0;"})
+        </div>
+    </div>
+        <div class="col-sm-1" style="display: inline-block;">
+                <button class="btn btn-primary" id="btnSearch2">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </div>
+
+
+    <div class="row" style="display: flex; align-items: center;margin: 0;">
+        <div class="col-sm-2 display">
+            <label style="margin-right: 5px;">Date</label>  
+            @Html.TextBox("ExpectedEnd", "",  new { @class = "form-control", style = "width: 120px;", @Value = @DateTime.Now.ToString("dd-MMM-yyyy"), @readonly = "readonly" })
+            @*<div class='input-group input-append date' id='datetimepicker2' style="width:120%;">
+            <input type='text' name="ExpectedEnd" id="ExpectedEnd" style="width: 110px;"  class="form-control" data-error="Date should not be blank." required />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>*@
+        </div>
+            <div class="col-sm-2 display">
+                <label style="margin-right: 5px;">Profiles</label>
+                @Html.TextBox("txtProfiles", "", new { @class = "form-control",style = "width: 85px;", onkeypress = "return isNumericKey(event);", maxlength = "2" })
+            </div>
+            <div class="col-sm-1 display" >
+                <label style="margin-right: 5px;">L1</label>
+                @Html.TextBox("txtL1", "", new { @class = "form-control", style = "width:60px", onkeypress = "return isNumericKey(event);", maxlength = "2" })
+            </div>
+            <div class="col-sm-1 display" >
+                <label style="margin-right: 5px;">L2</label>
+                @Html.TextBox("txtL2", "", new { @class = "form-control", style = "width:60px", onkeypress = "return isNumericKey(event);", maxlength = "2" })
+            </div>
+            <div class="col-sm-1 display" >
+                <label style="margin-right: 5px;">HR</label>
+                @Html.TextBox("txtHR", "", new { @class = "form-control", style = "width:60px" , onkeypress = "return isNumericKey(event);", maxlength = "2"})
+            </div>
+            <div class="col-sm-3 display">
+                <label style="margin-right: 5px;">Pending Interviews</label>
+                @Html.TextBox("txtPendingInterviews", "", new { @class = "form-control", style = "width:60px", onkeypress = "return isNumericKey(event);", maxlength = "2" })
+            </div>
+            <div class="col-sm-2 display">
+                <button id="popup" onclick="SaveProfilesData();" style="background-color: #004BBB;color: white;border-radius: 3px;border: 5px solid transparent;margin: 0 -56px;">Save</button>
+
+            </div>
+        </div>
+           
+
+        <div>
+            <table id="tableBenchEmployees" class="table table-striped table-bordered" cellspacing="0" style="margin: 27px -2px;">
+                <thead>
+                    <tr id="a" style="background-color:#D3D4D9 !important; color: black; font-size: 12px;">
+                        <th>TR #</th>
+                        <th>Profiles</th>
+                        <th>L1</th>
+                        <th>L2</th>
+                        <th>HR</th>
+                        <th>Pending Interviews</th>
+                        <th>Recruiter Name</th>
+                        <th>TA Lead Name</th>
+                        <th>Date</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.ProfilesInfoList)
+                        {
+                            <tr style="font-size: 12px;">
+                                <td id="lblprjctcodeiid">@item.HRRFNumber</td>
+                                <td id="lblprjctcodeiid">@item.Profiles</td>
+                                <td id="lblprojetname">@item.L1</td>
+                                <td id="lblbillingstatus">@item.L2</td>
+                                <td id="lblorggroup">@item.HR</td>
+                                <td id="lblorgsubgroup">@item.PendingInterviews</td>
+                                <td id="lblorggroup">@item.RecruiterName</td>
+                                <td id="lblorgsubgroup">@item.TAleadName</td>
+                                <td><span id="StartDate" class="display-mode">@(item.ProfilesDate == null ? "" : @Convert.ToDateTime(item.ProfilesDate).ToString("dd-MMM-yyyy"))</span></td>
+
+                            </tr>
+                        }
+                    }
+
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">
+                                <div class="text-center">No data found</div>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">    
+
+        function isNumericKey(e) {
+            if (window.event) { var charCode = window.event.keyCode; }
+            else if (e) { var charCode = e.which; }
+            else { return true; }
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) { alert("Enter Only Numbers"); return false; }
+            return true;
+        }
+       // var nowDate = new Date();
+       // var today = new Date(nowDate.getFullYear(), nowDate.getMonth() - 12, nowDate.getDate(), 0, 0, 0, 0);
+       // var date2 = new Date();
+        //date2.setDate(date2.getDate() + 15);
+     //   date2.setDate(date2.getDate().toString('dd-M-yyyy'));
+      //  var enddate = date2.setDate(date2.getDate().toString('dd-M-yyyy'));
+        
+        //  $(document).ready(function () {
+             // $("#txtempid").hide();
+
+           //   $("#ExpectedEnd").val(date2)
+      //  });
+            var jsonarray = [];
+            $("#GoalSettingLoadingIcon").hide();
+        
+        //$('#datetimepicker2').datepicker({
+        //    keyboardNavigation: false,
+        //    forceParse: false,
+        //    autoclose: true,
+        //    todayHighlight: true,
+        //    startDate: date2,
+        //    endDate: date2,
+        //    format: 'dd-M-yyyy'
+        //}).on('changeDate', function (e) {
+        //    $(this).datepicker('hide');
+        //});
+            //$('#datetimepicker2').datepicker({
+            //    keyboardNavigation: false,
+            //    forceParse: false,
+            //    autoclose: true,
+            //    todayHighlight: true,
+            //    startDate: date2,
+            //    format: 'dd-M-yyyy'}).on('changeDate', function (e) {
+            //    $(this).datepicker('hide');
+            //    });
+
+            $("#btnSearch2").click(function () {
+                $("#GoalSettingLoadingIcon").show();
+                var txttrnumber = $("#SearchTRNumber").val();             
+                if (txttrnumber == "")
+                {
+                    bootbox.alert("Please enter TR Number");
+                }
+                else
+                {
+                    window.location = "@Url.Action("GetTRProfilesInfobyHRRFNumber", "SkillOrgUpdate")" + "?HrrfNumber=" + txttrnumber;
+                }
+            });
+
+            function SaveProfilesData() {
+                var trnumber = $("#SearchTRNumber").val();             
+                if (trnumber == "") {
+                    bootbox.alert("Please enter TR Number");
+                }
+                var txtpofiles = $("#txtProfiles").val();
+                    var l1det = $("#txtL1").val();
+                    var l2det = $("#txtL2").val();
+                    var hrdet = $("#txtHR").val();
+                    var pendInter = $("#txtPendingInterviews").val();
+                    var expctedDate = $("#ExpectedEnd").val();
+                var profiledata =
+                {
+                    HRRFNumber: trnumber,
+                    Profiles: txtpofiles,
+                    L1: l1det,
+                    L2: l2det,
+                    HR: hrdet,
+                    PendingInterviews: pendInter,
+                    ProfilesDate: expctedDate
+                }
+                $.ajax({
+                    type: "POST",                   
+                    url: '@Url.Action("SaveTRProfilesInformation", "SkillOrgUpdate")',
+                    data: JSON.stringify(profiledata),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                            if (data != null && data != "Sessionexpired")
+                            {                             
+                                alert('Data Saved Successfully');
+                                window.location = "@Url.Action("GetTRProfilesInfobyHRRFNumber", "SkillOrgUpdate")" + "?HrrfNumber=" + trnumber;                            
+                            }
+                            else if (data == "Sessionexpired")
+                            {
+                                window.location.href = '@Url.Action("SessionExpire", "Signout")';
+                            }
+                            else if (data == "Error")
+                            {
+                               window.location.href = '@Url.Action("Error", "Error")';
+                            }
+                        },
+                        error: function (thrownError) {
+                            alert(thrownError);
+                        }
+                    });
+            };
+        
+                    function chkvalidationforskill()
+        {
+                    var ischk = true;
+                    var expectedenddate = $("#ExpectedEnd").val();
+                    var clientorproject = $("#ddlclientorproject").val();
+                    var reasonforrelease = $("#txresonforrelease").val();
+                    var skillname = $("#txtskills").val();
+                    var feedback = $("#txtfeedback").val();
+                    var performance = $("#ddlresourceperformance").val();
+                    var projectmovement = $("#ddlProjectmovemnt").val();
+                    if (expectedenddate == "") {
+                    bootbox.alert("Please enter Release Date");
+                    ischk = false;
+                    }
+                    else if (clientorproject == "") {
+                    bootbox.alert("Please select Client/Project");
+                    ischk = false;
+                    }
+                    else if (skillname == "") {
+                    bootbox.alert("Please enter Skills");
+                    ischk = false;
+                    }
+                    else if (feedback == "") {
+                    bootbox.alert("Please enter feedback");
+                    ischk = false;
+                    }
+                    else if (reasonforrelease == "") {
+                    bootbox.alert("Please Enter reason for release");
+                    ischk = false;
+                    }
+                    else if (performance == "") {
+                    bootbox.alert("Please select Resource Performance");
+                    ischk = false;
+                    }
+                    else if (projectmovement == "") {
+                    bootbox.alert("Please select  Is discusion with project movement");
+                    ischk = false;
+                    }
+                    return ischk;
+                    }
+        
+                    function GetEmployeeId(EmpCode) {
+                    $("#GoalSettingLoadingIcon").show();
+                    window.location = "@Url.Action("GetEmployeeInfoData", "EmployeeAssignment")" + "?EmpCode=" + EmpCode;
+                    };      
+        
+                   
+
+    </script>
+</body>
+</html>
+
